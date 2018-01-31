@@ -11,6 +11,11 @@ angular.module('myApp.picker', ['ngRoute', 'firebase'])
 
     .controller('pickerCtrl', ['$scope', '$firebaseArray', function ($scope, $firebaseArray) {
 
+        var ref = firebase.database().ref().child("Picker");
+
+        $scope.pickers = $firebaseArray(ref);
+
+
 
         $scope.addPicker = function() {
 
