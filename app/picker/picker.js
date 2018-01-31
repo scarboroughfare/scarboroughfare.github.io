@@ -11,7 +11,7 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
         $scope.addPicker = function () {
             $uibModal.open({
                 resolve: { picker: null },
-                templateUrl: '/picker/picker_entry.html',
+                templateUrl: 'app/picker/picker_entry.html',
                 controller: 'modalPickerCtrl',
                 backdrop: 'static'
             }).result.then(function (picker) {
@@ -41,7 +41,7 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
         $scope.editPicker = function (picker) {
             $uibModal.open({
                 resolve: { picker: picker },
-                templateUrl: '/picker/picker_entry.html',
+                templateUrl: 'app/picker/picker_entry.html',
                 controller: 'modalPickerCtrl',
                 backdrop: 'static'
             }).result.then(function (picker) {
@@ -80,8 +80,6 @@ heavenApp.controller('modalPickerCtrl', ['$scope', '$uibModalInstance', 'picker'
             $scope.buttonColor = 'btn btn-primary';
             $scope.buttonName = 'Update';
         }
-
-
 
         $scope.save = function () {
 

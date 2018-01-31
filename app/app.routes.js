@@ -6,7 +6,7 @@ heavenApp.config(["$routeProvider",
         $routeProvider
 
             .when("/picker", {
-                templateUrl: "picker/picker.html",
+                templateUrl: "app/picker/picker.html",
                 controller: "pickerCtrl"
             })
      
@@ -23,7 +23,7 @@ heavenApp.config(["$routeProvider",
 
 
             .when("/home/", {
-                templateUrl: "picker/picker.html",
+                templateUrl: "app/picker/picker.html",
                 controller: "pickerCtrl"
             })
 
