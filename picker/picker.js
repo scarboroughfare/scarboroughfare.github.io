@@ -11,7 +11,7 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
         $scope.addPicker = function () {
             $uibModal.open({
                 resolve: { picker: null },
-                templateUrl: '/picker/pickerEntry.html',
+                templateUrl: '/picker/picker_entry.html',
                 controller: 'modalPickerCtrl',
                 backdrop: 'static'
             }).result.then(function (picker) {
