@@ -1,7 +1,7 @@
 'use strict';
 
-heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray', '$firebaseObject', '$routeParams',
-    function ($scope, $uibModal, $firebaseArray, $firebaseObject, $routeParams) {
+heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
+    function ($scope, $uibModal, $firebaseArray) {
 
         var ref = firebase.database().ref().child("Picker");
 
@@ -14,9 +14,26 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray', '$f
                 templateUrl: '/picker/pickerEntry.html',
                 controller: 'modalPickerCtrl',
                 backdrop: 'static'
-            }).result.then(function (data) {
+            }).result.then(function (picker) {
 
-                $scope.savePicker(data);
+                var ref = firebase.database().ref("Picker");
+
+                $firebaseArray(ref).$add({
+                    FirstName: picker.FirstName,
+                    LastName: picker.LastName,
+                    NickName: picker.NickName
+                }).then(function (ref) {
+                    var id = ref.key;
+                    console.log('Added New Picker ' + id);
+                });
+
+                //$firebaseArray(ref).$add(picker)
+                //    .then(function (ref) {
+                //        var id = ref.key;
+                //        alert('Added New Picker ' + id);
+
+                //});
+
             });
         };
 
@@ -27,37 +44,19 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray', '$f
                 templateUrl: '/picker/pickerEntry.html',
                 controller: 'modalPickerCtrl',
                 backdrop: 'static'
-            }).result.then(function (data) {
+            }).result.then(function (picker) {
 
-                $scope.updatePicker(data);
+                var ref = firebase.database().ref("Picker/" + picker.$id);
+
+                ref.update({
+                    FirstName: picker.FirstName,
+                    LastName: picker.LastName,
+                    NickName: picker.NickName
+                }).then(function () {
+                    console.log('Picker Updated ' + picker.$id);
+                });
             });
         };
-
-
-        $scope.savePicker = function(picker) {
-
-            var ref = firebase.database().ref("Picker");
-            $firebaseArray(ref).$add(picker)
-                .then(function(ref) {
-                    var id = ref.key;
-                    alert('Added New Picker ' + id);
-
-                });
-        }
-
-
-
-        $scope.updatePicker = function (picker) {
-
-            var ref = firebase.database().ref("Picker");
-            $firebaseArray(ref).$save(picker)
-                .then(function (ref) {
-                    var id = ref.key;
-                    alert('Added New Picker ' + id);
-
-                });
-        }
-         
 
 
 }]);
@@ -72,13 +71,17 @@ heavenApp.controller('modalPickerCtrl', ['$scope', '$uibModalInstance', 'picker'
         if (picker === null) {
             $scope.headerTitle = 'Add Picker';
             $scope.headerColor = 'modal-header modal-header-success';
-            $scope.operation = 0;
+            $scope.buttonColor = 'btn btn-success';
+            $scope.buttonName = 'Save';
         }
         else {
             $scope.headerTitle = 'Edit Picker';
             $scope.headerColor = 'modal-header modal-header-primary';
-            $scope.operation = 1;
+            $scope.buttonColor = 'btn btn-primary';
+            $scope.buttonName = 'Update';
         }
+
+
 
         $scope.save = function () {
 

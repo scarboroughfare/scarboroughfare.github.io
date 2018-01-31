@@ -50,7 +50,8 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-success" ng-disabled="pickerForm.$invalid" ng-click="save(picker)" id="size1" ng-show="operation===0"><span class="glyphicon glyphicon-ok"></span> Save</button>
-    <button type="button" class="btn btn-primary" ng-disabled="pickerForm.$invalid" ng-click="save(picker)" id="size1" ng-show="operation===1"><span class="glyphicon glyphicon-ok"></span> Update</button>
+    <!--<button type="button" class="btn btn-success" ng-disabled="pickerForm.$invalid" ng-click="save(picker)" id="size1" ng-show="operation===0"><span class="glyphicon glyphicon-ok"></span> Save</button>
+    <button type="button" class="btn btn-primary" ng-disabled="pickerForm.$invalid" ng-click="update(picker)" id="size1" ng-show="operation===1"><span class="glyphicon glyphicon-ok"></span> Update</button>-->
+    <button type="button" class="{{buttonColor}}" ng-disabled="pickerForm.$invalid" ng-click="save(picker)" id="size1"><span class="glyphicon glyphicon-ok"></span> {{buttonName}}</button>
     <button type="button" class="btn btn-default" ng-click="cancel()" id="size2"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
 </div>
