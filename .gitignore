@@ -3,5 +3,5 @@ logs/*
 tmp
 .DS_Store
 .idea
-.vs/
+/.vs/
 *.sln
