@@ -24,7 +24,11 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray', 'to
                 if (picker.$id === undefined) {
 
                     ref = firebase.database().ref("Picker");
-                    $firebaseArray(ref).$add($scope.picker)
+                    $firebaseArray(ref).$add({
+                        FirstName: picker.FirstName,
+                        LastName: picker.LastName,
+                        NickName: picker.NickName
+                    })
                     .then(function () {
                         toastr.success('New Picker Added Successfully!');
                      }),

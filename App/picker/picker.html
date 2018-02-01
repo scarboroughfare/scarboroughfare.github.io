@@ -14,7 +14,8 @@
             <th>FirstName</th>
             <th>LastName</th>
             <th ng-if="width > 1000">NickName</th>
-            <th>Actions</th>
+            <th ng-if="width > 1000" style="width: 20%; text-align: center">Actions</th>
+            <th ng-if="width < 1000" style="text-align: center">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -22,7 +23,7 @@
             <td>{{picker.FirstName}}</td>
             <td>{{picker.LastName}}</td>
             <td ng-if="width > 1000">{{picker.NickName}}</td>
-            <td>
+            <td  style="text-align: center">
                 <div ng-if="width > 1000">
                     <button class="btn btn-primary" type="button" ng-click="savePicker(picker)" style="width: 40%"><span class="glyphicon glyphicon-edit"></span> Edit</button>
                     <button class="btn btn-danger" type="button" ng-click="deletePicker($index)" style="width: 40%"><span class="glyphicon glyphicon glyphicon-trash"></span> Delete</button>
