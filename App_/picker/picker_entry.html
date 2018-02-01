@@ -1,0 +1,57 @@
+
+<!--<div class="row">
+    <h3>Add Picker</h3>
+    <form ng-submit="addPicker()">
+        <div class="form-group">
+            <label>First Name</label>
+            <input type="text" class="form-control" ng-model="picker.FirstName" placeholder="First Name"/>
+        </div>
+        <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" class="form-control" ng-model="picker.LastName" placeholder="Last Name"/>
+        </div>
+        <div class="form-group">
+            <label>Nick Name</label>
+            <input type="text" class="form-control" ng-model="picker.NickName" placeholder="Nick Name"/>
+        </div>
+
+        <button type="submit" class="btn btn-default">Save</button>
+    </form>
+</div>-->
+
+<div class="{{headerColor}}">
+    <h3 class="modal-title"><span class="glyphicon glyphicon-floppy-save"></span> {{headerTitle}}</h3>
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <form name="pickerForm">
+            <div class="form-group">
+                <label>FirstName</label>
+                <input type="text" class="form-control" placeholder="FirstName" name="FirstName" ng-model="picker.FirstName" ng-minlength="2" ng-maxlength="15" required />
+                <p class="error" ng-show="pickerForm.FirstName.$touched && pickerForm.FirstName.$invalid">FirstName is required.</p>
+                <p class="error" ng-show="pickerForm.FirstName.$error.minlength">FirstName is too short.</p>
+                <p class="error" ng-show="pickerForm.FirstName.$error.maxlength">FirstName is too long.</p>
+
+            </div>
+            <div class="form-group">
+                <label>LastName</label>
+                <input type="text" class="form-control" placeholder="LastName" name="LastName" ng-model="picker.LastName" ng-minlength="2" ng-maxlength="15" required />
+                <p class="error" ng-show="pickerForm.LastName.$touched && pickerForm.LastName.$invalid">LastName is required.</p>
+                <p class="error" ng-show="pickerForm.LastName.$error.minlength">LastName is too short.</p>
+                <p class="error" ng-show="pickerForm.LastName.$error.maxlength">LastName is too long.</p>
+
+            </div>
+            <div class="form-group">
+                <label>NickName</label>
+                <input type="text" class="form-control" placeholder="NickName" name="NickName" ng-model="picker.NickName" ng-minlength="2" ng-maxlength="15" required />
+                <p class="error" ng-show="pickerForm.NickName.$touched && pickerForm.NickName.$invalid">NickName is required.</p>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <!--<button type="button" class="btn btn-success" ng-disabled="pickerForm.$invalid" ng-click="save(picker)" id="size1" ng-show="operation===0"><span class="glyphicon glyphicon-ok"></span> Save</button>
+    <button type="button" class="btn btn-primary" ng-disabled="pickerForm.$invalid" ng-click="update(picker)" id="size1" ng-show="operation===1"><span class="glyphicon glyphicon-ok"></span> Update</button>-->
+    <button type="button" class="{{buttonColor}}" ng-disabled="pickerForm.$invalid" ng-click="save(picker)" id="size1"><span class="glyphicon glyphicon-ok"></span> {{buttonName}}</button>
+    <button type="button" class="btn btn-default" ng-click="cancel()" id="size2"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+</div>
