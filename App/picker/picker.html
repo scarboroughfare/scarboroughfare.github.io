@@ -7,13 +7,13 @@
     </div>
 </div>
 <br/>
-<div>
+<div my-directive>
     <table class="table table-bordered table-hover table-striped " style="table-layout: auto">
         <thead>
         <tr>
             <th>FirstName</th>
             <th>LastName</th>
-            <th>NickName</th>
+            <th ng-if="width > 1000">NickName</th>
             <th style="width:25%">Actions</th>
         </tr>
         </thead>
@@ -21,19 +21,16 @@
         <tr ng-repeat="picker in pickers">
             <td>{{picker.FirstName}}</td>
             <td>{{picker.LastName}}</td>
-            <td>{{picker.NickName}}</td>
+            <td ng-if="width > 1000">{{picker.NickName}}</td>
             <td>
-                <div my-directive>
-                    <div ng-if="width > 1000" >  
-                         <button class="btn btn-primary" type="button" ng-click="savePicker(picker)" style="width:40%"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                         <button class="btn btn-danger" type="button" ng-click="deletePicker($index)" style="width:40%"><span class="glyphicon glyphicon glyphicon-trash"></span> Delete</button>
-                    </div>
-                    <div ng-if="width < 1000">
-                         <button class="btn btn-primary" type="button" ng-click="savePicker(picker)"><span class="glyphicon glyphicon-edit"></span></button>
-                         <button class="btn btn-danger" type="button" ng-click="deletePicker($index)"><span class="glyphicon glyphicon glyphicon-trash"></span></button>   
-                    </div>  
+                <div ng-if="width > 1000">
+                    <button class="btn btn-primary" type="button" ng-click="savePicker(picker)" style="width: 40%"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                    <button class="btn btn-danger" type="button" ng-click="deletePicker($index)" style="width: 40%"><span class="glyphicon glyphicon glyphicon-trash"></span> Delete</button>
                 </div>
-              
+                <div ng-if="width < 1000">
+                    <button class="btn btn-primary" type="button" ng-click="savePicker(picker)"> <span class="glyphicon glyphicon-edit"></span></button>
+                    <button class="btn btn-danger" type="button" ng-click="deletePicker($index)"><span class="glyphicon glyphicon glyphicon-trash"></span></button>
+                </div>
             </td>
         </tr>
         </tbody>
