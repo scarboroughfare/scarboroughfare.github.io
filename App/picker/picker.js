@@ -1,7 +1,7 @@
 'use strict';
 
-heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
-    function ($scope, $uibModal, $firebaseArray) {
+heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray', 'toastr',
+    function ($scope, $uibModal, $firebaseArray, toastr) {
 
         var ref = firebase.database().ref().child("Picker"); 
         $scope.pickers = $firebaseArray(ref);
@@ -29,10 +29,13 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
                         FirstName: picker.FirstName,
                         LastName: picker.LastName,
                         NickName: picker.NickName
-                    }).then(function(ref) {
-                        var id = ref.key;
-                        console.log('Added New Picker ' + id);
-                    });
+                    })
+                    .then(function () {
+                        toastr.success('New Picker Added Successfully!');
+                     }),
+                    function () {
+                        toastr.error("Error Adding the Record!");
+                    };
                 }
                 else {
 
@@ -41,9 +44,13 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
                         FirstName: picker.FirstName,
                         LastName: picker.LastName,
                         NickName: picker.NickName
-                    }).then(function () {
-                        console.log('Picker Updated ' + picker.$id);
-                    });  
+                    })
+                    .then(function () {
+                         toastr.info('Picker Updated Successfully!');
+                    }),
+                    function () {
+                        toastr.error("Error Updating the Record!");
+                    };
                 }      
             });
         };
@@ -60,7 +67,13 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
 
                 var picker = $scope.pickers[index];
                 $scope.pickers.$remove(picker);
-            });
+             })
+            .then(function () {
+                toastr.warning('Picker Deleted Successfully!');
+             }),
+             function () {
+                 toastr.error("Error Deleting the Record!");
+             };
         };
 }]);
 
