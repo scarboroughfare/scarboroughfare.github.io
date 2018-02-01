@@ -9,6 +9,11 @@ heavenApp.config(["$routeProvider",
                 templateUrl: "App/picker/picker.html",
                 controller: "pickerCtrl"
             })
+            .when("/plan", {
+                templateUrl: "App/pick-plan/pick-plan.html",
+                controller: "pickPlanCtrl"
+            })
+
      
 
             .when("/about", {
@@ -22,9 +27,9 @@ heavenApp.config(["$routeProvider",
             })
 
 
-            .when("/home/", {
-                templateUrl: "App/picker/picker.html",
-                controller: "pickerCtrl"
+            .when("/home", {
+                templateUrl: "App/pick-plan/pick-plan.html",
+                controller: "pickPlanCtrl"
             })
 
             .otherwise({

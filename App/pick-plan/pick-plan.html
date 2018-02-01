@@ -1,0 +1,75 @@
+<div>
+    <h1>Picking Plan</h1>
+</div>
+<div ng-hide="isShowDatePlan === false">
+    <div>
+        <button class="btn btn-success" ng-click="hideDatePlan()"><span class="glyphicon glyphicon-plus"></span> Create New Plan</button>
+    </div>
+    <br/>
+    <div>
+        <table class="table table-bordered table-hover table-striped " style="table-layout: auto">
+            <thead>
+            <tr>
+                <th>Plan Date</th>
+                <th style="width: 20%; text-align: center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="pickPlan in pickPlans">
+                <td>{{pickPlan.PlanDate}}</td>
+                <td style="text-align: center">
+                    <div>
+                        <button class="btn btn-primary" type="button" ng-click="savePickPlan(pickPlan)" style="width: 40%"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                        <button class="btn btn-danger" type="button" ng-click="delPickPlan($index)" style="width: 40%"><span class="glyphicon glyphicon glyphicon-trash"></span> Delete</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div ng-hide="isShowDatePlan === true">
+    <div>
+        <button class="btn btn-success" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span> Add New Row</button>
+    </div>
+
+    <br />
+    <div>
+        <table class="table table-bordered table-hover table-striped " style="table-layout: auto">
+            <thead>
+            <tr>
+                <th>Task</th>
+                <th>Kgs Target</th>
+                <th>Kgs/Hour</th>
+                <th>Source</th>
+                <th>Start Time</th>
+                <th>Finish Time</th>
+                <th>Pickers</th>
+                <th>Notes</th>
+                <th style="text-align: center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="pickPlan in pickPlans">
+                <td>{{x.Task}}</td>
+                <td>{{x.KgTarget}}</td>
+                <td>{{x.KgHour}}</td>
+                <td>{{x.Source}}</td>
+                <td>{{x.StartTime}}</td>
+                <td>{{x.FinishTime}}</td>
+                <td>{{x.Pickers}}</td>
+                <td>{{x.Notes}}</td>
+                <td style="text-align: center">
+                    <div>
+                        <button class="btn btn-primary" type="button" ng-click="savePickPlan(pickPlan)" style="width: 40%"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                        <button class="btn btn-danger" type="button" ng-click="delPickPlan($index)" style="width: 40%"><span class="glyphicon glyphicon glyphicon-trash"></span> Delete</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-default" ng-click="showDatePlan()"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+</div>
+
+
