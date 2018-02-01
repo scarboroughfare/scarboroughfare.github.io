@@ -8,48 +8,47 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
         $scope.pickers = $firebaseArray(ref);
 
 
-        $scope.addPicker = function () {
-            $uibModal.open({
-                resolve: { picker: null },
-                templateUrl: 'App/picker/picker_entry.html',
-                controller: 'modalPickerCtrl',
-                backdrop: 'static'
-            }).result.then(function (picker) {
+        $scope.savePicker = function (picker) {
 
-                var ref = firebase.database().ref("Picker");
+            if (picker === undefined) {
+                picker = null;
+            };
 
-                $firebaseArray(ref).$add({
-                    FirstName: picker.FirstName,
-                    LastName: picker.LastName,
-                    NickName: picker.NickName
-                }).then(function (ref) {
-                    var id = ref.key;
-                    console.log('Added New Picker ' + id);
-                });
-            });
-        };
-
-
-        $scope.editPicker = function (picker) {
             $uibModal.open({
                 resolve: { picker: picker },
                 templateUrl: 'App/picker/picker_entry.html',
                 controller: 'modalPickerCtrl',
-                backdrop: 'static'
+                backdrop: 'static',
+                windowClass: 'sm-modal-window'
             }).result.then(function (picker) {
 
-                var ref = firebase.database().ref("Picker/" + picker.$id);
+                var ref;
 
-                ref.update({
-                    FirstName: picker.FirstName,
-                    LastName: picker.LastName,
-                    NickName: picker.NickName
-                }).then(function () {
-                    console.log('Picker Updated ' + picker.$id);
-                });
+                if (picker.$id === undefined) {
+
+                    ref = firebase.database().ref("Picker");
+                    $firebaseArray(ref).$add({
+                        FirstName: picker.FirstName,
+                        LastName: picker.LastName,
+                        NickName: picker.NickName
+                    }).then(function(ref) {
+                        var id = ref.key;
+                        console.log('Added New Picker ' + id);
+                    });
+                }
+                else {
+
+                    ref = firebase.database().ref("Picker/" + picker.$id);
+                    ref.update({
+                        FirstName: picker.FirstName,
+                        LastName: picker.LastName,
+                        NickName: picker.NickName
+                    }).then(function () {
+                        console.log('Picker Updated ' + picker.$id);
+                    });  
+                }      
             });
         };
-
 
 }]);
 

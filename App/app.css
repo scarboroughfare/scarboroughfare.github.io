@@ -45,6 +45,9 @@ body {
     width: 150px
 }
 
+.sm-modal-window .modal-dialog {
+    width: 35%;
+}
 /*My Button Size Class*/
 .size1 {
     width: 100px
@@ -160,4 +163,8 @@ p.error {
     -moz-border-radius-topright: 5px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+}
+
+.set-right {
+    text-align: right;
 }
