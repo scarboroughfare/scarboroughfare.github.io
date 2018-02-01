@@ -3,10 +3,8 @@
 heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
     function ($scope, $uibModal, $firebaseArray) {
 
-        var ref = firebase.database().ref().child("Picker");
-
+        var ref = firebase.database().ref().child("Picker"); 
         $scope.pickers = $firebaseArray(ref);
-
 
         $scope.savePicker = function (picker) {
 
@@ -50,6 +48,20 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
             });
         };
 
+        $scope.deletePicker = function (index) {
+
+            $uibModal.open({
+                resolve: { picker: index },
+                templateUrl: 'App/shared/delete_popup.html',
+                controller: 'modalPickerCtrl',
+                backdrop: 'static',
+                windowClass: 'sm-modal-window'
+            }).result.then(function (index) {
+
+                var picker = $scope.pickers[index];
+                $scope.pickers.$remove(picker);
+            });
+        };
 }]);
 
 
@@ -76,11 +88,13 @@ heavenApp.controller('modalPickerCtrl', ['$scope', '$uibModalInstance', 'picker'
             $uibModalInstance.close($scope.picker);
         };
 
+        $scope.delete = function () {
+            $uibModalInstance.close($scope.picker);
+        };
+
         $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
         };
 
-        $scope.deleteRecord = function () {
-            $uibModalInstance.close($scope.picker);
-        };
     }]);
+

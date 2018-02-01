@@ -2,29 +2,31 @@
     <h1>Pickers</h1>
 </div>
 <div>
-    <div><button class="btn btn-success" ng-click="savePicker()"><span class="glyphicon glyphicon-plus"></span>  Add Picker</button></div>
+    <div>
+        <button class="btn btn-success" ng-click="savePicker()"><span class="glyphicon glyphicon-plus"></span> Add Picker</button>
+    </div>
 </div>
-<br />
+<br/>
 <div>
     <table class="table table-bordered table-hover table-striped " style="table-layout: auto">
         <thead>
-            <tr>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>NickName</th>
-                <th style="width:20%">Actions</th>
-            </tr>
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>NickName</th>
+            <th style="width: 20%">Actions</th>
+        </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="picker in pickers">
-                <td>{{picker.FirstName}}</td>
-                <td>{{picker.LastName}}</td>
-                <td>{{picker.NickName}}</td>
-                <td>
-                    <button class="btn btn-primary" type="button" ng-click="savePicker(picker)" style="width:100px"><span class="glyphicon glyphicon-edit"></span>  Edit</button>
-                    <button class="btn btn-danger" type="button" ng-click="pickers.$remove(picker)" style="width:100px"><span class="glyphicon glyphicon glyphicon-trash"></span> Delete</button>
-                </td>
-            </tr>
+        <tr ng-repeat="picker in pickers">
+            <td>{{picker.FirstName}}</td>
+            <td>{{picker.LastName}}</td>
+            <td>{{picker.NickName}}</td>
+            <td>
+                <button class="btn btn-primary" type="button" ng-click="savePicker(picker)" style="width: 100px"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                <button class="btn btn-danger" type="button" ng-click="deletePicker($index)" style="width: 100px"><span class="glyphicon glyphicon glyphicon-trash"></span> Delete</button>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
