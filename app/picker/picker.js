@@ -11,7 +11,7 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
         $scope.addPicker = function () {
             $uibModal.open({
                 resolve: { picker: null },
-                templateUrl: 'app/picker/picker_entry.html',
+                templateUrl: 'App/picker/picker_entry.html',
                 controller: 'modalPickerCtrl',
                 backdrop: 'static'
             }).result.then(function (picker) {
@@ -26,14 +26,6 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
                     var id = ref.key;
                     console.log('Added New Picker ' + id);
                 });
-
-                //$firebaseArray(ref).$add(picker)
-                //    .then(function (ref) {
-                //        var id = ref.key;
-                //        alert('Added New Picker ' + id);
-
-                //});
-
             });
         };
 
@@ -41,7 +33,7 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray',
         $scope.editPicker = function (picker) {
             $uibModal.open({
                 resolve: { picker: picker },
-                templateUrl: 'app/picker/picker_entry.html',
+                templateUrl: 'App/picker/picker_entry.html',
                 controller: 'modalPickerCtrl',
                 backdrop: 'static'
             }).result.then(function (picker) {
@@ -82,7 +74,6 @@ heavenApp.controller('modalPickerCtrl', ['$scope', '$uibModalInstance', 'picker'
         }
 
         $scope.save = function () {
-
             $uibModalInstance.close($scope.picker);
         };
 
