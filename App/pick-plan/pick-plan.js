@@ -12,12 +12,60 @@ heavenApp.controller('pickPlanCtrl', ['$scope', '$uibModal', '$firebaseArray', '
         $scope.showDatePlan = function () {
 
             $scope.isShowDatePlan = true;
+           
         }
 
         $scope.hideDatePlan = function () {
 
             $scope.isShowDatePlan = false;
+            $scope.pickPlan.PlanDate = "";
+            $scope.dateForm.$setPristine();
+            $scope.dateForm.$setUntouched();
         }
+
+
+        $scope.openCalendar = function () {
+            $scope.status.opened = true;
+        };
+        $scope.status = {
+            opened: false
+        };
+
+
+        $scope.saveDatePlan = function (pickPlan) {
+
+
+            var ref;
+
+            if (pickPlan.$id === undefined) {
+
+                ref = firebase.database().ref("PickPlan");
+                $firebaseArray(ref).$add({
+                    PlanDate: pickPlan.PlanDate.toDateString()
+            })
+                .then(function() {
+                     toastr.success('New PickPlan Added Successfully!');
+                 }),
+                    function() {
+                        toastr.error("Error Adding the Record!");
+                    };
+            } else {
+
+                ref = firebase.database().ref("PickPlan/" + pickPlan.$id);
+                ref.update({
+                            FirstName: pickPlan.FirstName,
+                            LastName: pickPlan.LastName,
+                            NickName: pickPlan.NickName
+                        })
+                        .then(function() {
+                            toastr.info('PickPlan Updated Successfully!');
+                        }),
+                    function() {
+                        toastr.error("Error Updating the Record!");
+                    };
+            }
+            
+        };
 
 
         $scope.savePickPlan = function (pickPlan) {

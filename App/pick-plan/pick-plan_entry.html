@@ -9,30 +9,13 @@
         <br/>
         <form name="pickerForm">
             <div class="form-group row">
-                <label class="col-sm-3 col-md-3 control-label set-right">FirstName:</label>
+                <label class="col-sm-3 col-md-3 control-label set-right">Task:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" placeholder="FirstName" name="FirstName" ng-model="picker.FirstName" ng-minlength="2" ng-maxlength="15" required/>
-                    <p class="error" ng-show="pickerForm.FirstName.$touched && pickerForm.FirstName.$invalid">FirstName is required.</p>
-                    <p class="error" ng-show="pickerForm.FirstName.$error.minlength">FirstName is too short.</p>
-                    <p class="error" ng-show="pickerForm.FirstName.$error.maxlength">FirstName is too long.</p>
+                    <input type="text" class="form-control" placeholder="Task" name="Task" ng-model="pickPlanDetail.Task" required/>
+
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-md-3 control-label set-right">LastName:</label>
-                <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" placeholder="LastName" name="LastName" ng-model="picker.LastName" ng-minlength="2" ng-maxlength="15" required/>
-                    <p class="error" ng-show="pickerForm.LastName.$touched && pickerForm.LastName.$invalid">LastName is required.</p>
-                    <p class="error" ng-show="pickerForm.LastName.$error.minlength">LastName is too short.</p>
-                    <p class="error" ng-show="pickerForm.LastName.$error.maxlength">LastName is too long.</p>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-md-3 control-label set-right">NickName:</label>
-                <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" placeholder="NickName" name="NickName" ng-model="picker.NickName" ng-minlength="2" ng-maxlength="15" required/>
-                    <p class="error" ng-show="pickerForm.NickName.$touched && pickerForm.NickName.$invalid">NickName is required.</p>
-                </div>
-            </div>
+
         </form>
     </div>
 </div>
