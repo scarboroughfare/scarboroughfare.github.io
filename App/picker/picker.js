@@ -16,8 +16,7 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray', 'to
                 resolve: { picker: picker },
                 templateUrl: 'App/picker/picker_entry.html',
                 controller: 'modalPickerCtrl',
-                backdrop: 'static',
-                windowClass: 'sm-modal-window'
+                backdrop: 'static'
             }).result.then(function (picker) {
 
                 var ref;
@@ -61,8 +60,7 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray', 'to
                 resolve: { picker: index },
                 templateUrl: 'App/shared/delete_popup.html',
                 controller: 'modalPickerCtrl',
-                backdrop: 'static',
-                windowClass: 'sm-modal-window'
+                backdrop: 'static'        
             }).result.then(function (index) {
 
                 var picker = $scope.pickers[index];
