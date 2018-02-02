@@ -18,7 +18,8 @@ heavenApp.controller('pickPlanCtrl', ['$scope', '$uibModal', '$firebaseArray', '
         $scope.hideDatePlan = function () {
 
             $scope.isShowDatePlan = false;
-            $scope.pickPlan.PlanDate = "";
+            $scope.pickPlan.PlanDate = '';
+            $scope.pickPlan.id = '';
             $scope.dateForm.$setPristine();
             $scope.dateForm.$setUntouched();
         }
@@ -31,39 +32,68 @@ heavenApp.controller('pickPlanCtrl', ['$scope', '$uibModal', '$firebaseArray', '
             opened: false
         };
 
-
+        var isExist = false;
         $scope.saveDatePlan = function (pickPlan) {
-
 
             var ref;
 
-            if (pickPlan.$id === undefined) {
+            debugger;
 
-                ref = firebase.database().ref("PickPlan");
-                $firebaseArray(ref).$add({
-                    PlanDate: pickPlan.PlanDate.toDateString()
-            })
-                .then(function() {
-                     toastr.success('New PickPlan Added Successfully!');
-                 }),
-                    function() {
-                        toastr.error("Error Adding the Record!");
-                    };
-            } else {
-
-                ref = firebase.database().ref("PickPlan/" + pickPlan.$id);
-                ref.update({
-                            FirstName: pickPlan.FirstName,
-                            LastName: pickPlan.LastName,
-                            NickName: pickPlan.NickName
-                        })
-                        .then(function() {
-                            toastr.info('PickPlan Updated Successfully!');
-                        }),
-                    function() {
-                        toastr.error("Error Updating the Record!");
-                    };
+            var data = {
+                id: $scope.pickPlan.id,
+                PlanDate: $scope.pickPlan.PlanDate.toDateString()
             }
+
+            angular.forEach($scope.pickPlans,
+                function (pickDate) {
+
+                    if (pickDate.PlanDate === data.PlanDate && pickDate.id === data.id) {
+                        isExist = true;
+                    }
+                    else if (pickDate.PlanDate === data.PlanDate && pickDate.id !== data.id) {
+                        isExist = true;
+                    }
+                });
+
+
+            if (!isExist) {
+                if (pickPlan.$id === undefined) {
+
+                    ref = firebase.database().ref("PickPlan");
+                    $firebaseArray(ref).$add({
+                        PlanDate: pickPlan.PlanDate.toDateString()
+                }).then(function (ref) {
+                         $scope.pickPlan.id = ref.key;
+                         $scope.dateTemp = angular.copy($scope.pickPlan.PlanDate.toDateString());
+                         toastr.success('New PickPlan Added Successfully!');
+                            console.log($scope.dateTemp);
+
+                        }),
+                        function() {
+                            toastr.error("Error Adding the Record!");
+                        };
+                } else {
+
+                    ref = firebase.database().ref("PickPlan/" + pickPlan.$id);
+                    ref.update({
+                                FirstName: pickPlan.FirstName,
+                                LastName: pickPlan.LastName,
+                                NickName: pickPlan.NickName
+                            })
+                            .then(function() {
+                                toastr.info('PickPlan Updated Successfully!');
+                            }),
+                        function() {
+                            toastr.error("Error Updating the Record!");
+                        };
+                }
+            } else {
+                alert("Date already exists!");
+                $scope.pickPlan.PlanDate = new Date(Date.parse($scope.dateTemp));;
+                console.log($scope.dateTemp);
+            }
+            return isExist = false;
+
             
         };
 

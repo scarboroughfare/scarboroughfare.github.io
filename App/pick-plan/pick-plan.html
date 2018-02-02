@@ -63,6 +63,11 @@
                 </div>
                 <p class="error" ng-show="dateForm.pickPlan.$touched && dateForm.pickPlan.$invalid">Date is required.</p>
             </div>
+            <input class="form-group"
+                   placeholder="PickPlanId"
+                   @*type="hidden"*@
+                   ng-model="pickPlan.id"
+                   ng-readonly="true"/>
         </form>
     </div>
     <br />
