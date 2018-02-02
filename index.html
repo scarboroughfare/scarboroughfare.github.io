@@ -72,8 +72,9 @@
 <script src="App/app.config.js"></script>
 <script src="App/picker/picker.js"></script>
 <script src="App/pick-plan/pick-plan.js"></script>
+    
+// Initialize the Firebase SDK
 <script>
-    // Initialize the Firebase SDK
     var config = {
         apiKey: "AIzaSyDDR0N4N6hKb4X_r7-BvGVRtPgTMaFvbUg",
         authDomain: "heaven-dev-db.firebaseapp.com",
@@ -85,5 +86,11 @@
     firebase.initializeApp(config);
 </script>
 
-</body>
-</html>
+//Fix navbar not closing after click
+<script>
+    $('.navbar-collapse a').click(function () {
+        $(".navbar-collapse").collapse('hide');
+    });
+</script>
+</body >
+</html >
