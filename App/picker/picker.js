@@ -5,6 +5,13 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray', 'to
 
         var ref = firebase.database().ref().child("Picker"); 
         $scope.pickers = $firebaseArray(ref);
+        $scope.pickers.$loaded()
+            .then(function () {
+                console.log('picker list loaded');
+            })
+            .catch(function (err) {
+                console.error(err);
+            });
 
         $scope.savePicker = function (picker) {
 
@@ -28,13 +35,14 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray', 'to
                         FirstName: picker.FirstName,
                         LastName: picker.LastName,
                         NickName: picker.NickName
-                    })
-                    .then(function () {
+                    }).then(function (ref) {
+
+                            console.log(ref.key);
                         toastr.success('New Picker Added Successfully!');
-                     }),
-                    function () {
-                        toastr.error("Error Adding the Record!");
-                    };
+                     })
+                    .catch(function (err) {
+                        console.error(err);
+                    });
                 }
                 else {
 
@@ -46,10 +54,10 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray', 'to
                     })
                     .then(function () {
                          toastr.info('Picker Updated Successfully!');
-                    }),
-                    function () {
-                        toastr.error("Error Updating the Record!");
-                    };
+                    })
+                    .catch(function (err) {
+                        console.error(err);
+                    });
                 }      
             });
         };
@@ -68,10 +76,10 @@ heavenApp.controller('pickerCtrl', ['$scope', '$uibModal', '$firebaseArray', 'to
              })
             .then(function () {
                 toastr.error('Picker Deleted Successfully!');
-             }),
-             function () {
-                 toastr.error("Error Deleting the Record!");
-             };
+             })
+            .catch(function (err) {
+                console.error(err);
+            });
         };
 }]);
 
