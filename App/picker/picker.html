@@ -20,9 +20,9 @@
         </thead>
         <tbody>
             <tr ng-repeat="picker in pickers">
-                <td>{{picker.FirstName}}</td>
-                <td>{{picker.LastName}}</td>
-                <td ng-if="width > 1000">{{picker.NickName}}</td>
+                <td>{{picker.firstName}}</td>
+                <td>{{picker.lastName}}</td>
+                <td ng-if="width > 1000">{{picker.nickName}}</td>
                 <td style="text-align: center">
                     <div ng-if="width > 1000">
                         <button class="btn btn-primary" type="button" ng-click="savePicker(picker)" style="width: 40%"><span class="glyphicon glyphicon-edit"></span> Edit</button>
