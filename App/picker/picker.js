@@ -1,7 +1,8 @@
 'use strict';
 
 heavenApp.controller('pickerCtrl',
-    [ '$scope', '$uibModal', '$firebaseArray', 'toastr',
+    [
+        '$scope', '$uibModal', '$firebaseArray', 'toastr',
         function($scope, $uibModal, $firebaseArray, toastr) {
 
             var ref = firebase.database().ref("pickers");
@@ -13,7 +14,6 @@ heavenApp.controller('pickerCtrl',
                 .catch(function(err) {
                     console.warn(err.message);
                 });
-
 
             $scope.savePicker = function(picker) {
 
@@ -31,14 +31,13 @@ heavenApp.controller('pickerCtrl',
                 }).result.then(function(picker) {
 
 
-                    if (picker.$id === undefined) {
+                    if (picker.$id === undefined) { 
 
                         $scope.pickers.$add({
                                 firstName: picker.firstName,
                                 lastName: picker.lastName,
                                 nickName: picker.nickName
-                            }).then(function(ref) {
-                                console.log(ref.key);
+                            }).then(function() {
                                 toastr.success('New Picker Added Successfully!');
                             })
                             .catch(function(err) {
@@ -46,13 +45,12 @@ heavenApp.controller('pickerCtrl',
                             });
                     } else {
 
-                        var pickerData = firebase.database().ref("pickers/" + picker.$id);
-                        pickerData.update({
-                                firstName: picker.firstName,
-                                lastName: picker.lastName,
-                                nickName: picker.nickName
-                            })
-                            .then(function() {
+                        var pickr = $scope.pickers.$getRecord(picker.$id);
+                        pickr.firstName = picker.firstName;
+                        pickr.lastName = picker.lastName;
+                        pickr.nickName = picker.nickName;
+
+                        $scope.pickers.$save(pickr).then(function() {
                                 toastr.info('Picker Updated Successfully!');
                             })
                             .catch(function(err) {
@@ -62,19 +60,19 @@ heavenApp.controller('pickerCtrl',
                 });
             };
 
-            $scope.deletePicker = function(index) {
+            $scope.deletePicker = function(picker) {
 
                 $uibModal.open({
                         resolve: {
-                             picker: index
+                            picker: picker
                         },
                         templateUrl: 'App/shared/delete_popup.html',
                         controller: 'modalPickerCtrl',
                         backdrop: 'static'
-                    }).result.then(function(index) {
+                    }).result.then(function(picker) {
 
-                        var picker = $scope.pickers[index];
-                        $scope.pickers.$remove(picker);
+                        var pickr = $scope.pickers.$getRecord(picker.$id);
+                        $scope.pickers.$remove(pickr);
                     })
                     .then(function() {
                         toastr.error('Picker Deleted Successfully!');
@@ -117,7 +115,6 @@ heavenApp.controller('modalPickerCtrl',
             $scope.cancel = function() {
                 $uibModalInstance.dismiss('cancel');
             };
-
         }
     ]);
 

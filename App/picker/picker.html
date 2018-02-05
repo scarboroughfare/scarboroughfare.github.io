@@ -26,11 +26,11 @@
                 <td style="text-align: center">
                     <div ng-if="width > 1000">
                         <button class="btn btn-primary" type="button" ng-click="savePicker(picker)" style="width: 40%"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                        <button class="btn btn-danger" type="button" ng-click="deletePicker($index)" style="width: 40%"><span class="glyphicon glyphicon glyphicon-trash"></span> Delete</button>
+                        <button class="btn btn-danger" type="button" ng-click="deletePicker(picker)" style="width: 40%"><span class="glyphicon glyphicon glyphicon-trash"></span> Delete</button>
                     </div>
                     <div ng-if="width < 1000">
                         <button class="btn btn-primary" type="button" ng-click="savePicker(picker)"> <span class="glyphicon glyphicon-edit"></span></button>
-                        <button class="btn btn-danger" type="button" ng-click="deletePicker($index)"><span class="glyphicon glyphicon glyphicon-trash"></span></button>
+                        <button class="btn btn-danger" type="button" ng-click="deletePicker(picker)"><span class="glyphicon glyphicon glyphicon-trash"></span></button>
                     </div>
                 </td>
             </tr>
