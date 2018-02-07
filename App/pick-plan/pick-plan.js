@@ -1,27 +1,51 @@
 'use strict';
 
-heavenApp.controller('pickPlanCtrl', ['$scope', '$uibModal', '$firebaseArray', 'toastr',
-    function ($scope, $uibModal, $firebaseArray, toastr) {
-
-        var ref = firebase.database().ref().child("PickPlan"); 
-        $scope.pickPlans = $firebaseArray(ref);
+heavenApp.controller('pickPlanCtrl', ['$scope', '$uibModal', '$firebaseArray', 'toastr','heavenService',
+    function ($scope, $uibModal, $firebaseArray, toastr, heavenService) {
 
 
-        $scope.isShowDatePlan = true;
+        heavenService.getPickPlans().then(function (data) {
+            $scope.pickPlans = data;
+            if ($scope.pickPlans.length === 0) {
+                $scope.message = 'No records found.';
+            }
+        }).catch(function (err) {
+            console.warn(err.message);
+        });
+ 
+        //$scope.pickPlans = [
+        //    {
+        //        id: 1,
+        //        planDate: 'Feb 7 2018',
+        //        pickPlanDetails: [
+        //            {
+        //                task: 'Mint',
+        //                kgTarget: 20,
+        //                kgPerHour: 5,
+        //                startTime: '6:30',
+        //                finishTime: '7:30',
+        //                source: 'PH',
+        //                pickers: 'JT, Jo, Dave',
+        //                notes:'Test'
+        //            }]
+        //    }
+        //];
 
-        $scope.showDatePlan = function () {
 
-            $scope.isShowDatePlan = true;
-           
-        }
 
-        $scope.hideDatePlan = function () {
+        $scope.editPickPlan = function (pickPlan) {
+
+
+            console.log(pickPlan);
+
+            var date = 'Feb 6 2018';
+
 
             $scope.isShowDatePlan = false;
-            $scope.pickPlan.PlanDate = '';
-            $scope.pickPlan.id = '';
-            $scope.dateForm.$setPristine();
-            $scope.dateForm.$setUntouched();
+
+            $scope.plan.planDate = new Date(Date.parse(date));
+
+
         }
 
 
@@ -37,20 +61,18 @@ heavenApp.controller('pickPlanCtrl', ['$scope', '$uibModal', '$firebaseArray', '
 
             var ref;
 
-            debugger;
-
             var data = {
                 id: $scope.pickPlan.id,
-                PlanDate: $scope.pickPlan.PlanDate.toDateString()
+                planDate: $scope.pickPlan.planDate.toDateString()
             }
 
             angular.forEach($scope.pickPlans,
                 function (pickDate) {
 
-                    if (pickDate.PlanDate === data.PlanDate && pickDate.id === data.id) {
+                    if (pickDate.planDate === data.planDate && pickDate.id === data.id) {
                         isExist = true;
                     }
-                    else if (pickDate.PlanDate === data.PlanDate && pickDate.id !== data.id) {
+                    else if (pickDate.planDate === data.planDate && pickDate.id !== data.id) {
                         isExist = true;
                     }
                 });
@@ -59,13 +81,13 @@ heavenApp.controller('pickPlanCtrl', ['$scope', '$uibModal', '$firebaseArray', '
             if (!isExist) {
                 if (pickPlan.$id === undefined) {
 
-                    ref = firebase.database().ref("PickPlan");
-                    $firebaseArray(ref).$add({
-                        PlanDate: pickPlan.PlanDate.toDateString()
+                   
+                    $scope.pickPlans.$add({
+                        planDate: pickPlan.planDate.toDateString()
                 }).then(function (ref) {
                          $scope.pickPlan.id = ref.key;
-                         $scope.dateTemp = angular.copy($scope.pickPlan.PlanDate.toDateString());
-                         toastr.success('New PickPlan Added Successfully!');
+                         $scope.dateTemp = angular.copy($scope.pickPlan.planDate.toDateString());
+                         toastr.success('New pickPlan Added Successfully!');
                             console.log($scope.dateTemp);
 
                         }),
@@ -74,14 +96,11 @@ heavenApp.controller('pickPlanCtrl', ['$scope', '$uibModal', '$firebaseArray', '
                         };
                 } else {
 
-                    ref = firebase.database().ref("PickPlan/" + pickPlan.$id);
-                    ref.update({
-                                FirstName: pickPlan.FirstName,
-                                LastName: pickPlan.LastName,
-                                NickName: pickPlan.NickName
-                            })
-                            .then(function() {
-                                toastr.info('PickPlan Updated Successfully!');
+                    var pckPlan = $scope.pickers.$getRecord(pickPlan.$id);
+                    pckPlan.lastName = pickPlan.planDate.toDateString();
+                  
+                    $scope.pickers.$save(pckPlan).then(function () {
+                                toastr.info('pickPlan Updated Successfully!');
                             }),
                         function() {
                             toastr.error("Error Updating the Record!");
@@ -89,83 +108,112 @@ heavenApp.controller('pickPlanCtrl', ['$scope', '$uibModal', '$firebaseArray', '
                 }
             } else {
                 alert("Date already exists!");
-                $scope.pickPlan.PlanDate = new Date(Date.parse($scope.dateTemp));;
+                $scope.pickPlan.planDate = new Date(Date.parse($scope.dateTemp));
                 console.log($scope.dateTemp);
             }
-            return isExist = false;
-
-            
+            return isExist = false;           
         };
 
 
-        $scope.savePickPlan = function (pickPlan) {
+        $scope.addRow = function (pickPlan) {
+
+
 
             if (pickPlan === undefined) {
                 pickPlan = null;
             };
 
             $uibModal.open({
-                resolve: { pickPlan: pickPlan },
+                resolve: {
+                    pickPlan: pickPlan
+                },
                 templateUrl: 'App/pick-plan/pick-plan_entry.html',
                 controller: 'modalPickPlanCtrl',
                 backdrop: 'static'
-            }).result.then(function (pickPlan) {
+            }).result.then(function (pickPlanDetail) {
 
-                var ref;
+                var ref = firebase.database().ref("pickPlans").child("pickPlanDetails");
+                $scope.pickPlanDetails = $firebaseArray(ref);
+                $scope.pickPlanDetails.$add({                         
+                            task: pickPlanDetail.task,
+                            kgTarget: pickPlanDetail.kgTarget,
+                            kgPerHour: pickPlanDetail.kgPerHour,
+                            source: pickPlanDetail.source,
+                            startTime: pickPlanDetail.startTime,
+                            finshTime: pickPlanDetail.finshTime,
+                            pickers: pickPlanDetail.pickers,
+                            notes: pickPlanDetail.notes
+                        }).then(function () {
+                            toastr.success('New Picker Added Successfully!');
+                        })
+                        .catch(function (err) {
+                            console.warn(err.message);
+                        });
 
-                if (pickPlan.$id === undefined) {
-
-                    ref = firebase.database().ref("PickPlan");
-                    $firebaseArray(ref).$add({
-                        FirstName: pickPlan.FirstName,
-                        LastName: pickPlan.LastName,
-                        NickName: pickPlan.NickName
-                    })
-                    .then(function () {
-                        toastr.success('New PickPlan Added Successfully!');
-                     }),
-                    function () {
-                        toastr.error("Error Adding the Record!");
-                    };
-                }
-                else {
-
-                    ref = firebase.database().ref("PickPlan/" + pickPlan.$id);
-                    ref.update({
-                        FirstName: pickPlan.FirstName,
-                        LastName: pickPlan.LastName,
-                        NickName: pickPlan.NickName
-                    })
-                    .then(function () {
-                         toastr.info('PickPlan Updated Successfully!');
-                    }),
-                    function () {
-                        toastr.error("Error Updating the Record!");
-                    };
-                }      
             });
         };
 
-        $scope.deletePickPlan = function (index) {
+
+        $scope.deletePickPlan = function (pickPlan) {
 
             $uibModal.open({
-                resolve: { pickPlan: index },
-                templateUrl: 'App/shared/delete_popup.html',
-                controller: 'modalPickPlanCtrl',
-                backdrop: 'static'        
-            }).result.then(function (index) {
+                    resolve: {
+                        pickPlan: pickPlan
+                    },
+                    templateUrl: 'App/shared/delete_popup.html',
+                    controller: 'modalPickPlanCtrl',
+                    backdrop: 'static'
+            }).result.then(function (pickPlan) {
 
-                var pickPlan = $scope.pickPlans[index];
-                $scope.pickPlans.$remove(pickPlan);
-             })
-            .then(function () {
-                toastr.error('PickPlan Deleted Successfully!');
-             }),
-             function () {
-                 toastr.error("Error Deleting the Record!");
-             };
+                var pckPlan = $scope.pickPlans.$getRecord(pickPlan.$id);
+                $scope.pickPlans.$remove(pckPlan);
+                })
+                .then(function () {
+                    toastr.error('PickingPlan Deleted Successfully!');
+                })
+                .catch(function (err) {
+                    console.warn(err.message);
+                });
         };
 }]);
+
+
+heavenApp.controller('pickPlanViewCtrl', ['$scope', '$uibModal', '$firebaseArray', 'toastr',
+    function ($scope, $uibModal, $firebaseArray, toastr) {
+
+
+
+
+        $scope.pickPlans = [
+            {
+                id: 1,
+                planDate: 'Feb 7 2018',
+                pickPlanDetails: [
+                    {
+                        task: 'Mint',
+                        kgTarget: 20,
+                        kgPerHour: 5,
+                        startTime: '6:30',
+                        finishTime: '7:30',
+                        source: 'PH',
+                        pickers: 'JT, Jo, Dave',
+                        notes: 'Test'
+                    }]
+            }
+        ];
+
+
+ 
+
+        $scope.openCalendar = function () {
+            $scope.status.opened = true;
+        };
+        $scope.status = {
+            opened: false
+        };
+
+
+    }]);
 
 
 
@@ -175,13 +223,13 @@ heavenApp.controller('modalPickPlanCtrl', ['$scope', '$uibModalInstance', 'pickP
         $scope.pickPlan = angular.copy(pickPlan);
 
         if (pickPlan === null) {
-            $scope.headerTitle = 'Add PickPlan';
+            $scope.headerTitle = 'Add Row';
             $scope.headerColor = 'modal-header modal-header-success';
             $scope.buttonColor = 'btn btn-success';
-            $scope.buttonName = 'Save';
+            $scope.buttonName = 'Add';
         }
         else {
-            $scope.headerTitle = 'Edit PickPlan';
+            $scope.headerTitle = 'Edit Row';
             $scope.headerColor = 'modal-header modal-header-primary';
             $scope.buttonColor = 'btn btn-primary';
             $scope.buttonName = 'Update';

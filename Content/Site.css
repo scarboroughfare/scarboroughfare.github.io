@@ -168,3 +168,9 @@ p.error {
 .set-right {
     text-align: right;
 }
+
+
+.bs-loading-container {
+    position: relative;
+    margin-top: 15px;
+}

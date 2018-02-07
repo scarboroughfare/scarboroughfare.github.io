@@ -2,18 +2,26 @@
 
 heavenApp.controller('pickerCtrl',
     [
-        '$scope', '$uibModal', '$firebaseArray', 'toastr',
-        function($scope, $uibModal, $firebaseArray, toastr) {
+        '$scope', '$uibModal', '$firebaseArray', 'toastr', 'heavenService','bsLoadingOverlayService',
+        function ($scope, $uibModal, $firebaseArray, toastr, heavenService, bsLoadingOverlayService) {
+         
+            $scope.pickers = [];
 
-            var ref = firebase.database().ref("pickers");
-            $scope.pickers = $firebaseArray(ref);
-            $scope.pickers.$loaded()
-                .then(function() {
-                    console.log('picker list loaded');
-                })
-                .catch(function(err) {
-                    console.warn(err.message);
-                });
+            if ($scope.pickers.length === 0) {
+                bsLoadingOverlayService.start();
+                heavenService.getPickers()
+                    .then(function (data) {
+                        $scope.pickers = data;
+                        $scope.pickers.$loaded()
+                            .then(function() {
+                                bsLoadingOverlayService.stop();
+                            });
+                    })
+                    .catch(function (err) {
+                        console.warn(err.message);
+                    });
+
+            }
 
             $scope.savePicker = function(picker) {
 
