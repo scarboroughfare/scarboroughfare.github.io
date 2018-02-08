@@ -11,7 +11,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">FirstName:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" placeholder="FirstName" name="firstName" ng-model="picker.firstName" ng-minlength="2" ng-maxlength="25" required/>
+                    <input type="text" class="form-control" placeholder="FirstName" name="firstName" ng-model="picker.firstName" autofocus ng-minlength="2" ng-maxlength="25" required />
                     <p class="error" ng-show="pickerForm.firstName.$touched && pickerForm.firstName.$invalid">FirstName is required.</p>
                     <p class="error" ng-show="pickerForm.firstName.$error.minlength">FirstName is too short.</p>
                     <p class="error" ng-show="pickerForm.firstName.$error.maxlength">FirstName is too long.</p>

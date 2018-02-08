@@ -5,22 +5,28 @@ heavenApp.controller('pickerCtrl',
         '$scope', '$uibModal', '$firebaseArray', 'toastr', 'heavenService','bsLoadingOverlayService',
         function ($scope, $uibModal, $firebaseArray, toastr, heavenService, bsLoadingOverlayService) {
          
-            $scope.pickers = [];
+            $scope.loadPickers = function () {
 
-            if ($scope.pickers.length === 0) {
-                bsLoadingOverlayService.start();
-                heavenService.getPickers()
-                    .then(function (data) {
-                        $scope.pickers = data;
-                        $scope.pickers.$loaded()
-                            .then(function() {
-                                bsLoadingOverlayService.stop();
-                            });
-                    })
-                    .catch(function (err) {
-                        console.warn(err.message);
-                    });
+                $scope.pickers = [];
+                if ($scope.pickers.length === 0) {
+                    bsLoadingOverlayService.start();
+                    heavenService.getPickers()
+                        .then(function (data) {
+                            $scope.pickers = data;
+                            $scope.pickers.$loaded()
+                                .then(function () {
+                                    bsLoadingOverlayService.stop();
+                                    if ($scope.pickers.length === 0) {
+                                        $scope.message = 'No records found.';
+                                    };
+                                });
+                        })
+                        .catch(function (err) {
+                            console.warn(err.message);
+                        });
+                }
             }
+            $scope.loadPickers();
 
             $scope.savePicker = function(picker) {
 
@@ -32,7 +38,7 @@ heavenApp.controller('pickerCtrl',
                     resolve: {
                         picker: picker
                     },
-                    templateUrl: 'App/picker/picker_entry.html',
+                    templateUrl: 'App/picker/picker-entry.html',
                     controller: 'modalPickerCtrl',
                     backdrop: 'static'
                 }).result.then(function(picker) {
@@ -64,6 +70,8 @@ heavenApp.controller('pickerCtrl',
                                 console.warn(err.message);
                             });
                     }
+
+                    $scope.message = '';
                 });
             };
 
@@ -73,20 +81,23 @@ heavenApp.controller('pickerCtrl',
                         resolve: {
                             picker: picker
                         },
-                        templateUrl: 'App/shared/delete_popup.html',
+                        templateUrl: 'App/shared/delete-popup.html',
                         controller: 'modalPickerCtrl',
                         backdrop: 'static'
-                    }).result.then(function(picker) {
-
+                }).result.then(function(picker) {
+                       
                         var pickr = $scope.pickers.$getRecord(picker.$id);
                         $scope.pickers.$remove(pickr);
-                    })
-                    .then(function() {
+                        $scope.loadPickers();
+                })
+                    .then(function () {
+
                         toastr.error('Picker Deleted Successfully!');
-                    })
-                    .catch(function(err) {
+                })
+                .catch(function(err) {
                         console.warn(err.message);
-                    });
+                 });
+
             };
         }
     ]);

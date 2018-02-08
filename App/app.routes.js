@@ -6,16 +6,17 @@ heavenApp.config(["$routeProvider",
         $routeProvider
 
             .when("/picker", {
-                templateUrl: "App/picker/picker.html",
+                templateUrl: "App/picker/picker-list.html",
                 controller: "pickerCtrl"
             })
+
             .when("/plan", {
-                templateUrl: "App/pick-plan/pick-plan.html",
+                templateUrl: "App/pickplan/pickplan-list.html",
                 controller: "pickPlanCtrl"
             })
             .when("/plan/view", {
-                templateUrl: "App/pick-plan/pick-plan_view.html",
-                controller: "pickPlanViewCtrl"
+                templateUrl: "App/pickplan/pickplan-view.html",
+                controller: "pickPlanCtrl"
             })
 
             .when("/about", {
@@ -30,7 +31,7 @@ heavenApp.config(["$routeProvider",
 
 
             .when("/home", {
-                templateUrl: "App/pick-plan/pick-plan.html",
+                templateUrl: "App/pickplan/pickplan-list.html",
                 controller: "pickPlanCtrl"
             })
 

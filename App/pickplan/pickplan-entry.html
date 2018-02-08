@@ -7,59 +7,59 @@
 <div class="modal-body">
     <div class="container-fluid">
         <br/>
-        <form name="pickerForm">
+        <form name="pickPlanDetailForm">
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Task:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" placeholder="Task" name="task" ng-model="pickPlan.pickPlanDetail.task" required/>
+                    <input type="text" class="form-control" placeholder="Task" name="task" ng-model="pickPlanDetail.task" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">KgTarget:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" placeholder="KgTarget" name="kgTarget" ng-model="pickPlan.pickPlanDetail.kgTarget" required/>
+                    <input type="text" class="form-control" placeholder="KgTarget" name="kgTarget" ng-model="pickPlanDetail.kgTarget" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Kg/Hour:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" placeholder="kg/Hour" name="kgPerHour" ng-model="pickPlan.pickPlanDetail.kgPerHour" required/>
+                    <input type="text" class="form-control" placeholder="kg/Hour" name="kgPerHour" ng-model="pickPlanDetail.kgPerHour" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Source:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" placeholder="Source" name="source" ng-model="pickPlan.pickPlanDetail.source" required />
+                    <input type="text" class="form-control" placeholder="Source" name="source" ng-model="pickPlanDetail.source" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Start Time:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" placeholder="Start Time" name="startTime" ng-model="pickPlan.pickPlanDetail.startTime" required />
+                    <input type="text" class="form-control" placeholder="Start Time" name="startTime" ng-model="pickPlanDetail.startTime" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Finish Time:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" placeholder="Finish Time" name="finishTime" ng-model="pickPlan.pickPlanDetail.finishTime" required />
+                    <input type="text" class="form-control" placeholder="Finish Time" name="finishTime" ng-model="pickPlanDetail.finishTime" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Pickers:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" placeholder="Pickers" name="pickers" ng-model="pickPlan.pickPlanDetail.pickers" required />
+                    <input type="text" class="form-control" placeholder="Pickers" name="pickers" ng-model="pickPlanDetail.pickers" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Notes:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" placeholder="Notes" name="notes" ng-model="pickPlan.pickPlanDetail.notes" required />
+                    <input type="text" class="form-control" placeholder="Notes" name="notes" ng-model="pickPlanDetail.notes" />
                 </div>
             </div>
         </form>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="{{buttonColor}}" ng-disabled="pickerForm.$invalid" ng-click="save(pickPlan)" id="size1"><span class="glyphicon glyphicon-ok"></span> {{buttonName}}</button>
+    <button type="button" class="{{buttonColor}}" ng-disabled="pickPlanDetailForm.$invalid" ng-click="save(pickPlanDetail)" id="size1"><span class="glyphicon glyphicon-ok"></span> {{buttonName}}</button>
     <button type="button" class="btn btn-default" ng-click="cancel()" id="size2"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
 </div>
