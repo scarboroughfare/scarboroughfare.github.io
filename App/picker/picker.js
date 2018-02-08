@@ -20,7 +20,6 @@ heavenApp.controller('pickerCtrl',
                     .catch(function (err) {
                         console.warn(err.message);
                     });
-
             }
 
             $scope.savePicker = function(picker) {
