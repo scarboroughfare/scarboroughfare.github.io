@@ -213,6 +213,8 @@ heavenApp.controller('pickPlanCtrl',
                     backdrop: 'static'
                 }).result.then(function (pickPlanDetail) {
 
+                    console.log(pickPlanDetail);
+
 
                     if (pickPlanDetail.$id === undefined) {
 
@@ -323,8 +325,8 @@ heavenApp.controller('modalPickPlanCtrl',
 
 heavenApp.controller('modalPickPlanViewCtrl',
     [
-        '$scope', '$uibModalInstance', 'pickPlanDetail',
-        function ($scope, $uibModalInstance, pickPlanDetail) {
+        '$scope', '$uibModalInstance', 'pickPlanDetail','heavenService',
+        function ($scope, $uibModalInstance, pickPlanDetail, heavenService) {
 
             $scope.pickPlanDetail = angular.copy(pickPlanDetail);
 
@@ -339,6 +341,11 @@ heavenApp.controller('modalPickPlanViewCtrl',
                 $scope.buttonColor = 'btn btn-primary';
                 $scope.buttonName = 'Update';
             }
+
+            heavenService.getPickers()
+                .then(function (data) {
+                    $scope.pickers = data;
+                });
 
             $scope.save = function () {
                 $uibModalInstance.close($scope.pickPlanDetail);
