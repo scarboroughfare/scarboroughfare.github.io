@@ -14,10 +14,6 @@ heavenApp.config(["$routeProvider",
                 templateUrl: "App/pickplan/pickplan-list.html",
                 controller: "pickPlanCtrl"
             })
-            .when("/plan/view", {
-                templateUrl: "App/pickplan/pickplan-view.html",
-                controller: "pickPlanCtrl"
-            })
 
             .when("/about", {
                 templateUrl: "Home/About",

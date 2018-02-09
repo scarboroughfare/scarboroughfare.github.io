@@ -12,6 +12,7 @@ heavenApp.controller('pickPlanCtrl',
                 planDate: null
             };
 
+
             $scope.loadPickPlans = function () {
 
                 $scope.pickPlans = [];
@@ -45,7 +46,6 @@ heavenApp.controller('pickPlanCtrl',
             
                 $scope.pickPlan.id = null;
                 $scope.pickPlan.planDate = null;
-
                 $scope.isShowDatePlan = false;
             };
 
@@ -53,8 +53,14 @@ heavenApp.controller('pickPlanCtrl',
 
                 $scope.pickPlan.id = pickPlan.$id;
                 $scope.pickPlan.planDate = new Date(pickPlan.planDate);
-
                 $scope.isShowDatePlan = false;
+            };
+
+            $scope.cancelPickPlan = function () {
+
+                $scope.pickPlan.id = null;
+                $scope.pickPlan.planDate = null;
+                $scope.isShowDatePlan = true;
             };
 
 
@@ -101,6 +107,9 @@ heavenApp.controller('pickPlanCtrl',
 
      // PickPlanView ----------------------->
 
+            $scope.print = function () {
+                window.print();
+            }
 
             $scope.openCalendar = function () {
                 $scope.status.opened = true;
@@ -216,7 +225,7 @@ heavenApp.controller('pickPlanCtrl',
                             startTime: pickPlanDetail.startTime,
                             finishTime: pickPlanDetail.finishTime,
                             pickers: pickPlanDetail.pickers,
-                            notes: pickPlanDetail.notes
+                            notes: pickPlanDetail.notes || null
 
                         }).then(function () {
                             toastr.success('New Row Added Successfully!');
@@ -234,10 +243,10 @@ heavenApp.controller('pickPlanCtrl',
                         pckPlanDetail.startTime = pickPlanDetail.startTime;
                         pckPlanDetail.finishTime = pickPlanDetail.finishTime;
                         pckPlanDetail.pickers = pickPlanDetail.pickers;
-                        pckPlanDetail.notes = pickPlanDetail.notes;
+                        pckPlanDetail.notes = pickPlanDetail.notes || null;
 
                         $scope.pickPlanDetails.$save(pckPlanDetail).then(function () {
-                            toastr.info('PickPlan Updated Successfully!');
+                            toastr.info('Row Updated Successfully!');
                         })
                             .catch(function (err) {
                                 console.warn(err.message);
@@ -265,7 +274,7 @@ heavenApp.controller('pickPlanCtrl',
                 })
                     .then(function () {
 
-                        toastr.error('PickPlan Deleted Successfully!');
+                        toastr.error('Row Deleted Successfully!');
                     })
                     .catch(function (err) {
                         console.warn(err.message);
@@ -320,12 +329,12 @@ heavenApp.controller('modalPickPlanViewCtrl',
             $scope.pickPlanDetail = angular.copy(pickPlanDetail);
 
             if (pickPlanDetail === null) {
-                $scope.headerTitle = 'Add PickPlan';
+                $scope.headerTitle = 'Add New Row';
                 $scope.headerColor = 'modal-header modal-header-success';
                 $scope.buttonColor = 'btn btn-success';
                 $scope.buttonName = 'Save';
             } else {
-                $scope.headerTitle = 'Edit PickPlan';
+                $scope.headerTitle = 'Edit Row';
                 $scope.headerColor = 'modal-header modal-header-primary';
                 $scope.buttonColor = 'btn btn-primary';
                 $scope.buttonName = 'Update';

@@ -59,7 +59,7 @@
                         <label>Date</label>
                         <p class="input-group">
                             <input type="text" class="form-control"
-                                   uib-datepicker-popup="dd/MM/yyyy"
+                                   uib-datepicker-popup="fullDate"
                                    ng-model="pickPlan.planDate"
                                    placeholder="Choose Date First"
                                    name="PlanDate"
@@ -133,7 +133,9 @@
     <div class="bs-loading-container" bs-loading-overlay></div>
     <div>
         <div>
-            <button class="btn btn-success" ng-disabled="dateForm.$invalid" ng-click="savePickPlanDetail()"><span class="glyphicon glyphicon-plus"></span> Add New Row</button>
+            <button class="btn btn-default pull-right size2" ng-click="cancelPickPlan()"><span class="glyphicon glyphicon-remove"></span> Cancel</button> 
+            <button type="button" class="btn btn-info hidden-print pull-right size1" ng-disabled="dateForm.$invalid"  ng-click="print()"><span class="glyphicon glyphicon-print"></span> Print</button>
+            <button class="btn btn-success pull-right" ng-disabled="dateForm.$invalid" ng-click="savePickPlanDetail()"><span class="glyphicon glyphicon-plus"></span> Add Row</button>
         </div>
     </div>
 </div>
