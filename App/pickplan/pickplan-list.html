@@ -30,8 +30,7 @@
                             <button class="btn btn-danger" type="button" ng-click="deletePickPlan(pickPlan)" style="width: 40%"><span class="glyphicon glyphicon glyphicon-trash"></span> Delete</button>
                         </div>
                         <div ng-if="width < 1000">
-                            <button class="btn btn-primary" type="button" ng-click="savePickPlan(pickPlan)">
-                                <span class="glyphicon glyphicon-edit"></span>
+                            <button class="btn btn-primary" type="button" ng-click="editPickPlan(pickPlan)"><span class="glyphicon glyphicon-edit"></span>
                             </button>
                             <button class="btn btn-danger" type="button" ng-click="deletePickPlan(pickPlan)">
                                 <span class="glyphicon glyphicon glyphicon-trash"></span>
@@ -109,6 +108,7 @@
                     <td>{{pickPlanDetail.source}}</td>
                     <td>{{pickPlanDetail.startTime}}</td>
                     <td>{{pickPlanDetail.finishTime}}</td>
+                    <!--<td><label ng-repeat="picker in pickPlanDetail.pickers">{{picker}} &nbsp;</label></td>-->
                     <td>{{pickPlanDetail.pickers}}</td>
                     <td>{{pickPlanDetail.notes}}</td>
                     <td style="text-align: center">
