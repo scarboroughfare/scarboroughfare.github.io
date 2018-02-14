@@ -49,6 +49,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            <div class="no-screen pull-right"  id="print-content" style="padding-right:10px"><img src="/Content/images/logo2.jpg" alt="Scarborough Fare" style="height:135px; width: 200px" /></div>
             <div ng-view></div>
             <hr/>
             <footer>
@@ -84,10 +85,10 @@
 <script src="App/app.config.js"></script>
 <script src="App/picker/picker.controller.js"></script>
 <script src="App/pickplan/pickplan.controller.js"></script>
-    
+
 <!--Fix navbar not closing after click-->
 <script>
-    $('.navbar-collapse a').click(function () {
+    $('.navbar-collapse a').click(function() {
         $(".navbar-collapse").collapse('hide');
     });
 </script>

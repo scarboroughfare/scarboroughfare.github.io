@@ -176,25 +176,53 @@ p.error {
 }
 
 
-/*Print*/
-@media screen {
-    #printSection {
-        display: none;
-    }
-}
+/**Print**/
 
 @media print {
     body * {
         visibility: hidden;
     }
 
-    #printSection, #printSection * {
+    #print-content * {
         visibility: visible;
+        overflow: visible;
     }
 
-    #printSection {
-        position: absolute;
-        left: 0;
-        top: 0;
+    #mainPage * {
+        display: none;
+    }
+
+
+
+    .hidden-print {
+        display: none !important;
+    }
+
+}
+
+/*Additional*/
+
+@page {
+    size: auto;
+    /*margin: top right bottom left*/
+    margin: 5mm -50mm 5mm -50mm;
+}
+
+
+@media screen {
+    .no-print {
+    }
+
+    .no-screen {
+        display: none;
+    }
+}
+
+@media print {
+    .no-print {
+        display: none;
+    }
+
+    .no-screen {
     }
 }

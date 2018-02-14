@@ -21,7 +21,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="pickPlan in pickPlans">
+                <tr ng-repeat="pickPlan in pickPlans | orderBy : 'pickPlan.planDate':true">
                     <td>{{pickPlan.planDate}}</td>
                     <td style="text-align: center">
                         <div ng-if="width > 1000">
@@ -49,14 +49,14 @@
 
 
 <!--PickPlan View-->
-<div ng-hide="isShowDatePlan === true">
+<div ng-hide="isShowDatePlan === true" id="print-content">
     <div>
         <form name="dateForm">
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Date</label>
-                        <p class="input-group">
+                        <label  class="no-print" >Date: </label>
+                        <p class="input-group no-print" >
                             <input type="text" class="form-control"
                                    uib-datepicker-popup="fullDate"
                                    ng-model="pickPlan.planDate"
@@ -80,60 +80,60 @@
                 </div>
                 <p class="error" ng-show="dateForm.pickPlan.$touched && dateForm.pickPlan.$invalid">Date is required.</p>
             </div>
-
             <!--Hidden Field for PickPlan Id-->
             <input class="form-group" placeholder="PickPlanId" type="hidden" ng-model="pickPlan.pickPlanId" ng-readonly="true"/>
         </form>
     </div>
     <div my-directive>
+        <p class="no-screen"><label>Date: </label> {{pickPlan.planDate.toDateString()}}</p>
         <table class="table table-bordered table-hover table-striped " style="table-layout: auto">
             <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Kgs Target</th>
-                    <th>Kgs/Hour</th>
-                    <th>Source</th>
-                    <th>Start Time</th>
-                    <th>Finish Time</th>
-                    <th>Pickers</th>
-                    <th>Notes</th>
-                    <th style="text-align: center">Actions</th>
-                </tr>
+            <tr>
+                <th>Task</th>
+                <th>Kgs Target</th>
+                <th>Kgs/Hour</th>
+                <th>Source</th>
+                <th>Start Time</th>
+                <th>Finish Time</th>
+                <th>Pickers</th>
+                <th>Notes</th>
+                <th style="text-align: center" class="hidden-print">Actions</th>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="pickPlanDetail in pickPlanDetails | filter : pickPlan.pickPlanId">
-                    <td>{{pickPlanDetail.task}}</td>
-                    <td>{{pickPlanDetail.kgTarget}}</td>
-                    <td>{{pickPlanDetail.kgPerHour}}</td>
-                    <td>{{pickPlanDetail.source}}</td>
-                    <td>{{pickPlanDetail.startTime}}</td>
-                    <td>{{pickPlanDetail.finishTime}}</td>   
-                    <td>{{ showPickers(pickPlanDetail.pickers)}}</td>
-                    <td>{{pickPlanDetail.notes}}</td>
-                    <td style="text-align: center">
-                        <div ng-if="width > 1000">
-                            <button class="btn btn-primary" type="button" ng-click="savePickPlanDetail(pickPlanDetail)" style="width: 40%"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                            <button class="btn btn-danger" type="button" ng-click="deletePickPlanDetail(pickPlanDetail)" style="width: 40%"><span class="glyphicon glyphicon glyphicon-trash"></span> Delete</button>
-                        </div>
-                        <div ng-if="width < 1000">
-                            <button class="btn btn-primary" type="button" ng-click="savePickPlanDetail(pickPlanDetail)">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-                            <button class="btn btn-danger" type="button" ng-click="deletePickPlanDetail(pickPlanDetail)">
-                                <span class="glyphicon glyphicon glyphicon-trash"></span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
+            <tr ng-repeat="pickPlanDetail in pickPlanDetails | filter : pickPlan.pickPlanId">
+                <td>{{pickPlanDetail.task}}</td>
+                <td>{{pickPlanDetail.kgTarget}}</td>
+                <td>{{pickPlanDetail.kgPerHour}}</td>
+                <td>{{pickPlanDetail.source}}</td>
+                <td>{{pickPlanDetail.startTime}}</td>
+                <td>{{pickPlanDetail.finishTime}}</td>
+                <td>{{ showPickers(pickPlanDetail.pickers)}}</td>
+                <td>{{pickPlanDetail.notes}}</td>
+                <td style="text-align: center" class="hidden-print">
+                    <div ng-if="width > 1000">
+                        <button class="btn btn-primary" type="button" ng-click="savePickPlanDetail(pickPlanDetail)" style="width: 40%"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                        <button class="btn btn-danger" type="button" ng-click="deletePickPlanDetail(pickPlanDetail)" style="width: 40%"><span class="glyphicon glyphicon glyphicon-trash"></span> Delete</button>
+                    </div>
+                    <div ng-if="width < 1000">
+                        <button class="btn btn-primary" type="button" ng-click="savePickPlanDetail(pickPlanDetail)">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                        <button class="btn btn-danger" type="button" ng-click="deletePickPlanDetail(pickPlanDetail)">
+                            <span class="glyphicon glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
     <p style="text-align: center"> {{message}} </p>
     <div class="bs-loading-container" bs-loading-overlay></div>
     <div>
-        <div>
-            <button class="btn btn-default pull-right size2" ng-click="cancelPickPlan()"><span class="glyphicon glyphicon-remove"></span> Cancel</button> 
-            <button type="button" class="btn btn-info hidden-print pull-right size1" ng-disabled="dateForm.$invalid"  ng-click="print()"><span class="glyphicon glyphicon-print"></span> Print</button>
+        <div class="hidden-print">
+            <button class="btn btn-default pull-right size2" ng-click="cancelPickPlan()"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            <button type="button" class="btn btn-info hidden-print pull-right size1" ng-disabled="dateForm.$invalid" ng-click="print()"><span class="glyphicon glyphicon-print"></span> Print</button>
             <button class="btn btn-success pull-right" ng-disabled="dateForm.$invalid" ng-click="savePickPlanDetail()"><span class="glyphicon glyphicon-plus"></span> Add Row</button>
         </div>
     </div>
