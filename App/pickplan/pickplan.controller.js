@@ -137,17 +137,18 @@ heavenApp.controller('pickPlanCtrl',
                 });
 
             $scope.showPickers = function (pickerList) {
+                if (pickerList === undefined) {
+                    return ' ';
+                } else {
+                    var selected = [];
+                    angular.forEach($scope.pickers, function (picker) {
 
-                var selected = [];
-                angular.forEach($scope.pickers, function (picker) {
-
-                    if (pickerList.indexOf(picker.$id) >= 0) {
-                        selected.push(picker.nickName);
-                    }
-                });
-                return selected.length ? selected.join(', ') : 'Not set';
-
-
+                        if (pickerList.indexOf(picker.$id) >= 0) {
+                            selected.push(picker.nickName);
+                        }
+                    });
+                    return selected.join(', ');
+                }
             };
 
             var isExist = false;
@@ -337,25 +338,51 @@ heavenApp.controller('modalPickPlanViewCtrl',
     [
         '$scope', '$uibModalInstance', 'pickPlanDetail','heavenService',
         function ($scope, $uibModalInstance, pickPlanDetail, heavenService) {
-
+            $scope.isChecked = false;
             $scope.pickPlanDetail = angular.copy(pickPlanDetail);
+            $scope.pickers = [];
+            heavenService.getPickers()
+                .then(function (data) {
+                    $scope.pickers = data;
+
+
+                    //To see if pickers are all selected or not
+                    var num1 = $scope.pickers.length;
+                    var num2 = $scope.pickPlanDetail.pickers.length;
+
+                    if (num1 === num2) {
+                        $scope.isChecked = true;
+                    } 
+                });
+
 
             if (pickPlanDetail === null) {
                 $scope.headerTitle = 'Add New Row';
                 $scope.headerColor = 'modal-header modal-header-success';
                 $scope.buttonColor = 'btn btn-success';
                 $scope.buttonName = 'Save';
+                $scope.pickPlanDetail = [];
+                $scope.pickPlanDetail.pickers = [];
             } else {
                 $scope.headerTitle = 'Edit Row';
                 $scope.headerColor = 'modal-header modal-header-primary';
                 $scope.buttonColor = 'btn btn-primary';
                 $scope.buttonName = 'Update';
+                                    
             }
 
-            heavenService.getPickers()
-                .then(function (data) {
-                    $scope.pickers = data;
-                });
+         
+            $scope.checkAll = function () {
+
+                if (!$scope.isChecked) {
+                    $scope.pickPlanDetail.pickers = $scope.pickers.map(function(picker) { return picker.$id; });
+                    $scope.isChecked = true;
+                } else {
+                    $scope.pickPlanDetail.pickers = []; 
+                    $scope.isChecked = false;
+                }            
+            };
+
 
             $scope.save = function () {
                 $uibModalInstance.close($scope.pickPlanDetail);
