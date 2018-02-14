@@ -8,7 +8,7 @@ heavenApp.controller('pickPlanCtrl',
             $scope.isShowDatePlan = true;
 
             $scope.pickPlan = {
-                id: null,
+                pickPlanId: null,
                 planDate: null
             };
 
@@ -44,21 +44,21 @@ heavenApp.controller('pickPlanCtrl',
 
             $scope.addPickPlan = function() {
             
-                $scope.pickPlan.id = null;
+                $scope.pickPlan.pickPlanId = null;
                 $scope.pickPlan.planDate = null;
                 $scope.isShowDatePlan = false;
             };
 
             $scope.editPickPlan = function (pickPlan) {
 
-                $scope.pickPlan.id = pickPlan.$id;
+                $scope.pickPlan.pickPlanId = pickPlan.$id;
                 $scope.pickPlan.planDate = new Date(pickPlan.planDate);
                 $scope.isShowDatePlan = false;
             };
 
             $scope.cancelPickPlan = function () {
 
-                $scope.pickPlan.id = null;
+                $scope.pickPlan.pickPlanId = null;
                 $scope.pickPlan.planDate = null;
                 $scope.isShowDatePlan = true;
             };
@@ -74,31 +74,28 @@ heavenApp.controller('pickPlanCtrl',
                         controller: 'modalPickPlanCtrl',
                         backdrop: 'static'
                 }).result.then(function(pickPlan) {
-  
-
-                        //var pickPlanDetail = $scope.pickDetails.$getRecord(pickPlan.$id);
-                        //$scope.pickDetails.$remove(pickPlanDetail);
 
                         var pckPlan = $scope.pickPlans.$getRecord(pickPlan.$id);
                         $scope.pickPlans.$remove(pckPlan);
 
-                        //angular.forEach($scope.pickPlanDetails,
-                        //    function (pickDetails) {
-                        //        if (pickDetails.id === pickPlan.$id) {
-                        //            alert("asdasd");
-                        //            var pckPlanDetail = $scope.pickPlanDetails.$getRecord(pickDetails.id);
-                        //            $scope.pickDetails.$remove(pckPlanDetail);
-                        //        }
-                                
-                        //    });
+
+                        $scope.selectedPickPlanDetails = $scope.pickPlanDetails.filter(function(pickPlanDetail) {
+                            return (pickPlanDetail.pickPlanId === pickPlan.$id);
+                        });
+
+                        for (var i = $scope.selectedPickPlanDetails.length - 1; i >= 0; i--) {
+
+                            var pckPlanDetail = $scope.selectedPickPlanDetails[i];
+                            $scope.pickPlanDetails.$remove(pckPlanDetail);
+                        }
 
                         $scope.loadPickPlans();
-                })
-                    .then(function () {
+                 })
+                .then(function() {
 
                         toastr.error('PickPlan Deleted Successfully!');
-                })
-                .catch(function(err) {
+                 })
+                 .catch(function(err) {
                         console.warn(err.message);
                  });
 
@@ -144,17 +141,17 @@ heavenApp.controller('pickPlanCtrl',
             $scope.saveDatePlan = function (pickPlan) {
                 debugger;
                 var data = {
-                    id: $scope.pickPlan.id,
+                    pickPlanId: $scope.pickPlan.pickPlanId,
                     planDate: $scope.pickPlan.planDate.toDateString()
                 }
 
                 angular.forEach($scope.pickPlans,
                     function (pickDate) {
 
-                        if (pickDate.planDate === data.planDate && pickDate.id === data.id) {
+                        if (pickDate.planDate === data.planDate && pickDate.pickPlanId === data.pickPlanId) {
                             isExist = true;
                         }
-                        else if (pickDate.planDate === data.planDate && pickDate.id !== data.id) {
+                        else if (pickDate.planDate === data.planDate && pickDate.pickPlanId !== data.pickPlanId) {
                             isExist = true;
                         }
                     });
@@ -162,13 +159,13 @@ heavenApp.controller('pickPlanCtrl',
 
 
                 if (!isExist) {
-                    if ($scope.pickPlan.id === null) {
+                    if ($scope.pickPlan.pickPlanId === null) {
 
 
                         $scope.pickPlans.$add({
                             planDate: pickPlan.planDate.toDateString()
                         }).then(function (ref) {
-                            $scope.pickPlan.id = ref.key;
+                            $scope.pickPlan.pickPlanId = ref.key;
                             $scope.dateTemp = angular.copy($scope.pickPlan.planDate.toDateString());
                             console.log('Date Added');
                         }).catch(function (err) {
@@ -176,7 +173,7 @@ heavenApp.controller('pickPlanCtrl',
                         });
                     } else {
 
-                        var pckPlan = $scope.pickPlans.$getRecord($scope.pickPlan.id);
+                        var pckPlan = $scope.pickPlans.$getRecord($scope.pickPlan.pickPlanId);
                         pckPlan.planDate = pickPlan.planDate.toDateString();
 
                         $scope.pickPlans.$save(pckPlan)
@@ -219,7 +216,7 @@ heavenApp.controller('pickPlanCtrl',
                     if (pickPlanDetail.$id === undefined) {
 
                         $scope.pickPlanDetails.$add({
-                            id: $scope.pickPlan.id,
+                            pickPlanId: $scope.pickPlan.pickPlanId,
                             task: pickPlanDetail.task,
                             kgTarget: pickPlanDetail.kgTarget,
                             kgPerHour: pickPlanDetail.kgPerHour,

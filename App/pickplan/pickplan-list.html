@@ -82,7 +82,7 @@
             </div>
 
             <!--Hidden Field for PickPlan Id-->
-            <input class="form-group" placeholder="PickPlanId" type="hidden" ng-model="pickPlan.id" ng-readonly="true"/>
+            <input class="form-group" placeholder="PickPlanId" type="hidden" ng-model="pickPlan.pickPlanId" ng-readonly="true"/>
         </form>
     </div>
     <div my-directive>
@@ -101,7 +101,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="pickPlanDetail in pickPlanDetails | filter : pickPlan.id">
+                <tr ng-repeat="pickPlanDetail in pickPlanDetails | filter : pickPlan.pickPlanId">
                     <td>{{pickPlanDetail.task}}</td>
                     <td>{{pickPlanDetail.kgTarget}}</td>
                     <td>{{pickPlanDetail.kgPerHour}}</td>
