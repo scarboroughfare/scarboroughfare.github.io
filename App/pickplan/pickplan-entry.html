@@ -50,7 +50,7 @@
                     <!--<input type="text" class="form-control" placeholder="Pickers" name="pickers" ng-model="pickPlanDetail.pickers" required />-->
                     <!--<span editable-checklist="pickPlanDetail.pickers" e-form="tableform" e-ng-options="picker.$id as picker.nickName for picker in pickers"></span>-->
                     <label ng-repeat="picker in pickers">
-                        <input type="checkbox" data-checklist-model="pickPlanDetail.pickers" data-checklist-value="picker.nickName"> {{picker.nickName}} &nbsp;
+                        <input type="checkbox" data-checklist-model="pickPlanDetail.pickers" data-checklist-value="picker.$id"> {{picker.nickName}} &nbsp;
                     </label>
                 </div>
             </div>

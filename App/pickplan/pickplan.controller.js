@@ -36,10 +36,26 @@ heavenApp.controller('pickPlanCtrl',
             }
             $scope.loadPickPlans();
 
-            heavenService.getPickPlanDetails()
-                .then(function (data) {
-                    $scope.pickPlanDetails = data;
-                });
+
+            $scope.loadPickPlanDetails = function () {
+
+                $scope.pickPlanDetails = [];
+                if ($scope.pickPlanDetails.length === 0) {
+                    bsLoadingOverlayService.start();
+                    heavenService.getPickPlanDetails()
+                        .then(function (data) {
+                            $scope.pickPlanDetails = data;
+                            $scope.pickPlanDetails.$loaded()
+                                .then(function () {
+                                    bsLoadingOverlayService.stop();
+                                });
+                        })
+                        .catch(function (err) {
+                            console.warn(err.message);
+                        });
+                }
+            }
+            $scope.loadPickPlanDetails();
 
 
             $scope.addPickPlan = function() {
@@ -115,27 +131,24 @@ heavenApp.controller('pickPlanCtrl',
                 opened: false
             };
 
-            $scope.loadPickPlanDetails = function () {
+            heavenService.getPickers()
+                .then(function (data) {
+                    $scope.pickers = data;
+                });
 
-                $scope.pickPlanDetails = [];
-                if ($scope.pickPlanDetails.length === 0) {
-                    bsLoadingOverlayService.start();
-                    heavenService.getPickPlanDetails()
-                        .then(function (data) {
-                            $scope.pickPlanDetails = data;
-                            $scope.pickPlanDetails.$loaded()
-                                .then(function () {
-                                    bsLoadingOverlayService.stop();
-                                });
-                        })
-                        .catch(function (err) {
-                            console.warn(err.message);
-                        });
-                }
-            }
-            $scope.loadPickPlanDetails();
+            $scope.showPickers = function (pickerList) {
+
+                var selected = [];
+                angular.forEach($scope.pickers, function (picker) {
+
+                    if (pickerList.indexOf(picker.$id) >= 0) {
+                        selected.push(picker.nickName);
+                    }
+                });
+                return selected.length ? selected.join(', ') : 'Not set';
 
 
+            };
 
             var isExist = false;
             $scope.saveDatePlan = function (pickPlan) {
