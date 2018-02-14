@@ -51,12 +51,13 @@
 <!--PickPlan View-->
 <div ng-hide="isShowDatePlan === true" id="print-content">
     <div>
+        <br />
         <form name="dateForm">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-3">
-                        <label  class="no-print" >Date: </label>
-                        <p class="input-group no-print" >
+                    <div class="col-md-3  no-print">
+                        <label>Date: </label>
+                        <p class="input-group">
                             <input type="text" class="form-control"
                                    uib-datepicker-popup="fullDate"
                                    ng-model="pickPlan.planDate"
