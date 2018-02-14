@@ -338,23 +338,14 @@ heavenApp.controller('modalPickPlanViewCtrl',
     [
         '$scope', '$uibModalInstance', 'pickPlanDetail','heavenService',
         function ($scope, $uibModalInstance, pickPlanDetail, heavenService) {
-            $scope.isChecked = false;
+
             $scope.pickPlanDetail = angular.copy(pickPlanDetail);
             $scope.pickers = [];
             heavenService.getPickers()
                 .then(function (data) {
                     $scope.pickers = data;
 
-
-                    //To see if pickers are all selected or not
-                    var num1 = $scope.pickers.length;
-                    var num2 = $scope.pickPlanDetail.pickers.length;
-
-                    if (num1 === num2) {
-                        $scope.isChecked = true;
-                    } 
                 });
-
 
             if (pickPlanDetail === null) {
                 $scope.headerTitle = 'Add New Row';
@@ -371,15 +362,15 @@ heavenApp.controller('modalPickPlanViewCtrl',
                                     
             }
 
-         
+          
             $scope.checkAll = function () {
-
-                if (!$scope.isChecked) {
+                debugger;
+                if ($scope.pickPlanDetail.pickers.length !== $scope.pickers.length) {
                     $scope.pickPlanDetail.pickers = $scope.pickers.map(function(picker) { return picker.$id; });
-                    $scope.isChecked = true;
+                   
                 } else {
                     $scope.pickPlanDetail.pickers = []; 
-                    $scope.isChecked = false;
+                 
                 }            
             };
 

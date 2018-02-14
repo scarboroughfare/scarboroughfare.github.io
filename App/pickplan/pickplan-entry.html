@@ -1,7 +1,8 @@
 
 
 <div class="{{headerColor}}">
-    <h3 class="modal-title"><span class="glyphicon glyphicon-floppy-save"></span> {{headerTitle}}
+    <h3 class="modal-title">
+        <span class="glyphicon glyphicon-floppy-save"></span> {{headerTitle}}
     </h3>
 </div>
 <div class="modal-body">
@@ -11,55 +12,52 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Task:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" name="task" ng-model="pickPlanDetail.task" required />
+                    <input type="text" class="form-control" name="task" ng-model="pickPlanDetail.task" required/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">KgTarget:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" name="kgTarget" ng-model="pickPlanDetail.kgTarget" required />
+                    <input type="text" class="form-control" name="kgTarget" ng-model="pickPlanDetail.kgTarget" required/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Kg/Hour:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control"  name="kgPerHour" ng-model="pickPlanDetail.kgPerHour" required />
+                    <input type="text" class="form-control" name="kgPerHour" ng-model="pickPlanDetail.kgPerHour" required/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Source:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" name="source" ng-model="pickPlanDetail.source" required />
+                    <input type="text" class="form-control" name="source" ng-model="pickPlanDetail.source" required/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Start Time:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" name="startTime" ng-model="pickPlanDetail.startTime" required />
+                    <input type="text" class="form-control" name="startTime" ng-model="pickPlanDetail.startTime" required/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Finish Time:</label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" name="finishTime" ng-model="pickPlanDetail.finishTime" required />
+                    <input type="text" class="form-control" name="finishTime" ng-model="pickPlanDetail.finishTime" required/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Pickers:</label>
                 <div class="col-sm-8 col-md-8">
-                    <!--<input type="text" class="form-control" placeholder="Pickers" name="pickers" ng-model="pickPlanDetail.pickers" required />-->
-                    <!--<span editable-checklist="pickPlanDetail.pickers" e-form="tableform" e-ng-options="picker.$id as picker.nickName for picker in pickers"></span>-->
                     <label ng-repeat="picker in pickers">
                         <input type="checkbox" data-checklist-model="pickPlanDetail.pickers" data-checklist-value="picker.$id" ng-required="pickPlanDetail.pickers.length == 0"> {{picker.nickName}} &nbsp;
                     </label>
-                    <br />
-                    <input type="checkbox" ng-click="checkAll()" ng-checked="{{isChecked}}"> <strong>Select/Clear All</strong>              
+                    <br/>
+                    <input type="checkbox" ng-click="checkAll()" ng-checked="pickPlanDetail.pickers.length === pickers.length"> <strong>Select/Clear All</strong>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label set-right">Notes:</label>
                 <div class="col-sm-8 col-md-8">
-                    <!--<input type="text" class="form-control" placeholder="Notes" name="notes" ng-model="pickPlanDetail.notes" />-->
                     <textarea class="form-control" rows="3" id="notes" ng-model="pickPlanDetail.notes"></textarea>
                 </div>
             </div>
