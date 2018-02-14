@@ -1,0 +1,29 @@
+
+
+<div class="{{headerColor}}">
+    <h3 class="modal-title">
+        <span class="glyphicon glyphicon-floppy-save"></span> {{headerTitle}}
+    </h3>
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <br/>
+        <form name="sourceForm">
+            <div class="form-group row">
+                <label class="col-sm-3 col-md-3 control-label">
+                    Source:
+                    <span style="color:red" ng-if="sourceForm.sourceName.$error.required"> *</span>
+                </label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="text" class="form-control" name="sourceName" ng-model="source.sourceName" autofocus ng-minlength="2" ng-maxlength="25" required />
+                    <p class="error" ng-show="sourceForm.sourceName.$error.minlength">SourceName is too short.</p>
+                    <p class="error" ng-show="sourceForm.sourceName.$error.maxlength">SourceName is too long.</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="{{buttonColor}}" ng-disabled="sourceForm.$invalid" ng-click="save(source)" id="size1"><span class="glyphicon glyphicon-ok"></span> {{buttonName}}</button>
+    <button type="button" class="btn btn-default" ng-click="cancel()" id="size2"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+</div>

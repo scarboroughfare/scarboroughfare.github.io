@@ -15,7 +15,7 @@
                     <span style="color:red" ng-if="pickPlanDetailForm.task.$error.required"> *</span>
                 </label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" name="task" ng-model="pickPlanDetail.task" required/>
+                    <input type="text" class="form-control" name="task" ng-model="pickPlanDetail.task" autocomplete="off" uib-typeahead="task as task.taskName for task in tasks  | filter:$viewValue | limitTo:8" required />
                 </div>
 
 

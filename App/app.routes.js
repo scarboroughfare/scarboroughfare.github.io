@@ -10,6 +10,16 @@ heavenApp.config(["$routeProvider",
                 controller: "pickerCtrl"
             })
 
+            .when("/task", {
+                templateUrl: "App/task/task-list.html",
+                controller: "taskCtrl"
+            })
+
+            .when("/source", {
+                templateUrl: "App/source/source-list.html",
+                controller: "sourceCtrl"
+            })
+
             .when("/plan", {
                 templateUrl: "App/pickplan/pickplan-list.html",
                 controller: "pickPlanCtrl"

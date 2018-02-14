@@ -136,6 +136,8 @@ heavenApp.controller('pickPlanCtrl',
                     $scope.pickers = data;
                 });
 
+
+
             $scope.showPickers = function (pickerList) {
                 if (pickerList === undefined) {
                     return ' ';
@@ -231,7 +233,7 @@ heavenApp.controller('pickPlanCtrl',
 
                         $scope.pickPlanDetails.$add({
                             pickPlanId: $scope.pickPlan.pickPlanId,
-                            task: pickPlanDetail.task,
+                            task: pickPlanDetail.task.taskName || pickPlanDetail.task,
                             kgTarget: pickPlanDetail.kgTarget,
                             kgPerHour: pickPlanDetail.kgPerHour,
                             source: pickPlanDetail.source,
@@ -249,7 +251,7 @@ heavenApp.controller('pickPlanCtrl',
                     } else {
 
                         var pckPlanDetail = $scope.pickPlanDetails.$getRecord(pickPlanDetail.$id);
-                        pckPlanDetail.task = pickPlanDetail.task;
+                        pckPlanDetail.task = pickPlanDetail.task.taskName || pickPlanDetail.task;
                         pckPlanDetail.kgTarget = pickPlanDetail.kgTarget;
                         pckPlanDetail.kgPerHour = pickPlanDetail.kgPerHour;
                         pckPlanDetail.source = pickPlanDetail.source;
@@ -345,6 +347,11 @@ heavenApp.controller('modalPickPlanViewCtrl',
                 .then(function (data) {
                     $scope.pickers = data;
 
+                });
+
+            heavenService.getTasks()
+                .then(function (data) {
+                    $scope.tasks = data;
                 });
 
             if (pickPlanDetail === null) {

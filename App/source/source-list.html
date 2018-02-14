@@ -1,0 +1,39 @@
+<div>
+    <h3>Sources</h3>
+</div>
+<div>
+    <div>
+        <button class="btn btn-success" ng-click="saveSource()"><span class="glyphicon glyphicon-plus"></span> Add Source</button>
+    </div>
+</div>
+<br />
+<div my-directive>
+    <table class="table table-bordered table-hover table-striped " style="table-layout: auto">
+        <thead>
+        <tr>
+            <th>Source</th>
+            <th ng-if="width > 1000" style="width: 25%; text-align: center">Actions</th>
+            <th ng-if="width < 1000" style="width: 110px; text-align: center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="source in sources| orderBy : 'sourceName'">
+            <td>{{source.sourceName}}</td>
+            <td style="text-align: center">
+                <div ng-if="width > 1000">
+                    <button class="btn btn-primary" type="button" ng-click="saveSource(source)" style="width: 40%"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                    <button class="btn btn-danger" type="button" ng-click="deleteSource(source)" style="width: 40%"><span class="glyphicon glyphicon glyphicon-trash"></span> Delete</button>
+                </div>
+                <div ng-if="width < 1000">
+                    <button class="btn btn-primary" type="button" ng-click="saveSource(source)"> <span class="glyphicon glyphicon-edit"></span></button>
+                    <button class="btn btn-danger" type="button" ng-click="deleteSource(source)"><span class="glyphicon glyphicon glyphicon-trash"></span></button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<p style="text-align: center"> {{message}} </p> 
+<div class="bs-loading-container" bs-loading-overlay ></div>
+
+

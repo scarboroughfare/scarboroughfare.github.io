@@ -1,0 +1,37 @@
+
+
+<div class="{{headerColor}}">
+    <h3 class="modal-title">
+        <span class="glyphicon glyphicon-floppy-save"></span> {{headerTitle}}
+    </h3>
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <br/>
+        <form name="taskForm">
+            <div class="form-group row">
+                <label class="col-sm-3 col-md-3 control-label">
+                    Task:
+                    <span style="color:red" ng-if="taskForm.taskName.$error.required"> *</span>
+                </label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="text" class="form-control" name="taskName" ng-model="task.taskName" autofocus ng-minlength="2" ng-maxlength="25" required />
+                    <p class="error" ng-show="taskForm.taskName.$error.minlength">TaskName is too short.</p>
+                    <p class="error" ng-show="taskForm.taskName.$error.maxlength">TaskName is too long.</p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-md-3 control-label">
+                    Rate:            
+                </label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="number" class="form-control" name="pickRate" ng-model="task.pickRate" min="0"  />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="{{buttonColor}}" ng-disabled="taskForm.$invalid" ng-click="save(task)" id="size1"><span class="glyphicon glyphicon-ok"></span> {{buttonName}}</button>
+    <button type="button" class="btn btn-default" ng-click="cancel()" id="size2"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+</div>
