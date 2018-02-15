@@ -120,6 +120,8 @@ heavenApp.controller('pickPlanCtrl',
 
      // PickPlanView ----------------------->
 
+
+
             $scope.print = function () {
                 window.print();
             }
@@ -155,7 +157,7 @@ heavenApp.controller('pickPlanCtrl',
 
             var isExist = false;
             $scope.saveDatePlan = function (pickPlan) {
-                debugger;
+ 
                 var data = {
                     pickPlanId: $scope.pickPlan.pickPlanId,
                     planDate: $scope.pickPlan.planDate.toDateString()
@@ -204,7 +206,11 @@ heavenApp.controller('pickPlanCtrl',
                     $scope.pickPlan.planDate = new Date(Date.parse($scope.dateTemp));
                     console.log($scope.dateTemp);
                 }
+                $scope.tableData = $scope.pickPlanDetails.filter(function (pickPlanDetail) {
+                    return (pickPlanDetail.pickPlanId === pickPlan.$id);
+                });
                 return isExist = false;
+
             };
 
 
@@ -267,7 +273,6 @@ heavenApp.controller('pickPlanCtrl',
                                 console.warn(err.message);
                             });
                     }
-
                     $scope.message = '';
                 });
             };
@@ -285,8 +290,8 @@ heavenApp.controller('pickPlanCtrl',
 
                     var pckPlanDetail = $scope.pickPlanDetails.$getRecord(pickPlanDetail.$id);
                     $scope.pickPlanDetails.$remove(pckPlanDetail);
-                    $scope.loadPickPlans();
-                })
+                        $scope.loadPickPlanDetails();
+                    })
                     .then(function () {
 
                         toastr.error('Row Deleted Successfully!');
