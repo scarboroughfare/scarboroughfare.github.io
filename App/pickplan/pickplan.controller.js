@@ -72,8 +72,11 @@ heavenApp.controller('pickPlanCtrl',
                 $scope.isShowDatePlan = false;
             };
 
-            $scope.cancelPickPlan = function () {
+            $scope.cancelPickPlan = function (form) {
 
+                form.$setPristine();
+                form.$setUntouched();
+                $scope.errorMsg = '';
                 $scope.pickPlan.pickPlanId = null;
                 $scope.pickPlan.planDate = null;
                 $scope.isShowDatePlan = true;
@@ -128,6 +131,7 @@ heavenApp.controller('pickPlanCtrl',
 
             $scope.openCalendar = function () {
                 $scope.status.opened = true;
+                $scope.errorMsg = '';
             };
             $scope.status = {
                 opened: false
@@ -202,7 +206,8 @@ heavenApp.controller('pickPlanCtrl',
                             });
                     }
                 } else {
-                    alert("Date already exists!");
+                    //alert("Date already exists!");
+                    $scope.errorMsg = 'Date already exists!';
                     $scope.pickPlan.planDate = new Date(Date.parse($scope.dateTemp));
                     console.log($scope.dateTemp);
                 }

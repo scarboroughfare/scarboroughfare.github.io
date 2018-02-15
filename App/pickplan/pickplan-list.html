@@ -55,7 +55,7 @@
         <form name="dateForm">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-sm-5 col-md-4 col-lg-3  no-print">
+                    <div class="col-sm-5 col-md-4 col-lg-3  no-print" ng-class="{'has-error': dateForm.pickPlan.$touched && dateForm.pickPlan.$invalid ||  errorMsgExist ===''}">
                         <label>Date: </label>
                         <p class="input-group">
                             <input type="text" class="form-control"
@@ -80,6 +80,7 @@
                     </div>
                 </div>
                 <p class="error" ng-show="dateForm.pickPlan.$touched && dateForm.pickPlan.$invalid">Date is required.</p>
+                <p class="error">{{errorMsg}}</p>
             </div>
             <!--Hidden Field for PickPlan Id-->
             <input class="form-group" placeholder="PickPlanId" type="hidden" ng-model="pickPlan.pickPlanId" ng-readonly="true"/>
@@ -132,8 +133,8 @@
     <div class="bs-loading-container" bs-loading-overlay></div>
     <div>
         <div class="hidden-print">
-            <button class="btn btn-default pull-right" ng-click="cancelPickPlan()"><span class="glyphicon glyphicon-remove"></span> Save & Exit</button>
-            <button type="button" class="btn btn-info hidden-print pull-right size1" ng-disabled="dateForm.$invalid" ng-click="print()"  ng-if="width > 1000"><span class="glyphicon glyphicon-print"></span> Print</button>
+            <button class="btn btn-default pull-right" ng-click="cancelPickPlan(dateForm)"><span class="glyphicon glyphicon-remove"></span> Save & Exit</button>
+            <button type="button" class="btn btn-info hidden-print pull-right size1" ng-disabled="dateForm.$invalid || (pickPlanDetails|filter: pickPlan.pickPlanId).length===0" ng-click="print()"  ng-if="width > 1000"><span class="glyphicon glyphicon-print"></span> Print</button>
             <button class="btn btn-success pull-right" ng-disabled="dateForm.$invalid" ng-click="savePickPlanDetail()"><span class="glyphicon glyphicon-plus"></span> Add Row</button>
         </div>
     </div>
