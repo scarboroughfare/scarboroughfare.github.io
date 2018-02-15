@@ -55,7 +55,7 @@
         <form name="dateForm">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-3  no-print">
+                    <div class="col-md-4  no-print">
                         <label>Date: </label>
                         <p class="input-group">
                             <input type="text" class="form-control"
@@ -98,8 +98,8 @@
                 <th ng-if="width > 1000">Finish Time</th>
                 <th ng-if="width > 1000">Pickers</th>
                 <th ng-if="width > 1000">Notes</th>
-                <th ng-if="width > 1000" style="width: 15%; text-align: center" class="hidden-print">Actions</th>
-                <th ng-if="width < 1000" style="width: 110px; text-align: center" class="hidden-print">Actions</th>
+                <!--<th ng-if="width > 1000" style="width: 15%; text-align: center" class="hidden-print">Actions</th>-->
+                <th  style="width: 110px; text-align: center" class="hidden-print">Actions</th>
             </tr>
             </thead>
             <tbody ui-sortable  ng:model="pickPlanDetails">
@@ -113,16 +113,14 @@
                 <td ng-if="width > 1000">{{ showPickers(pickPlanDetail.pickers)}}</td>
                 <td ng-if="width > 1000">{{pickPlanDetail.notes}}</td>
                 <td style="text-align: center" class="hidden-print">
-                    <div ng-if="width > 1000">
+                    <!--<div ng-if="width > 1000">
                         <button class="btn btn-primary" type="button" ng-click="savePickPlanDetail(pickPlanDetail)" style="width: 40%"><span class="glyphicon glyphicon-edit"></span> Edit</button>
                         <button class="btn btn-danger" type="button" ng-click="deletePickPlanDetail(pickPlanDetail)" style="width: 40%"><span class="glyphicon glyphicon glyphicon-trash"></span> Del</button>
-                    </div>
-                    <div ng-if="width < 1000">
-                        <button class="btn btn-primary" type="button" ng-click="savePickPlanDetail(pickPlanDetail)">
-                            <span class="glyphicon glyphicon-edit"></span>
+                    </div>-->
+                    <div>
+                        <button class="btn btn-primary" type="button" ng-click="savePickPlanDetail(pickPlanDetail)"><span class="glyphicon glyphicon-edit"></span>
                         </button>
-                        <button class="btn btn-danger" type="button" ng-click="deletePickPlanDetail(pickPlanDetail)">
-                            <span class="glyphicon glyphicon glyphicon-trash"></span>
+                        <button class="btn btn-danger" type="button" ng-click="deletePickPlanDetail(pickPlanDetail)"><span class="glyphicon glyphicon glyphicon-trash"></span>
                         </button>
                     </div>
                 </td>
