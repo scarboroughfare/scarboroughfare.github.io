@@ -12,7 +12,7 @@ heavenApp.controller('pickPlanCtrl',
                 planDate: null
             };
 
-
+         //Get All Picking Plans
             $scope.loadPickPlans = function () {
 
                 $scope.pickPlans = [];
@@ -34,9 +34,9 @@ heavenApp.controller('pickPlanCtrl',
                         });
                 }
             }
-            $scope.loadPickPlans();
+            $scope.loadPickPlans(); //loads the data
 
-
+        //Get All Picking Plan Deatails
             $scope.loadPickPlanDetails = function () {
 
                 $scope.pickPlanDetails = [];
@@ -55,9 +55,10 @@ heavenApp.controller('pickPlanCtrl',
                         });
                 }
             }
-            $scope.loadPickPlanDetails();
+            $scope.loadPickPlanDetails(); //loads the data
 
 
+        //Show Add Picking Plan
             $scope.addPickPlan = function() {
             
                 $scope.pickPlan.pickPlanId = null;
@@ -65,6 +66,7 @@ heavenApp.controller('pickPlanCtrl',
                 $scope.isShowDatePlan = false;
             };
 
+        //Show Edit Picking Plan
             $scope.editPickPlan = function (pickPlan) {
 
                 $scope.pickPlan.pickPlanId = pickPlan.$id;
@@ -72,6 +74,7 @@ heavenApp.controller('pickPlanCtrl',
                 $scope.isShowDatePlan = false;
             };
 
+         //Cancel Picking Plan
             $scope.cancelPickPlan = function (form) {
 
                 form.$setPristine();
@@ -82,7 +85,7 @@ heavenApp.controller('pickPlanCtrl',
                 $scope.isShowDatePlan = true;
             };
 
-
+         //Delete Picking Plan
             $scope.deletePickPlan = function(pickPlan) {
 
                 $uibModal.open({
@@ -112,7 +115,7 @@ heavenApp.controller('pickPlanCtrl',
                  })
                 .then(function() {
 
-                        toastr.error('PickPlan Deleted Successfully!');
+                        toastr.error('Plan Deleted Successfully!');
                  })
                  .catch(function(err) {
                         console.warn(err.message);
@@ -122,8 +125,6 @@ heavenApp.controller('pickPlanCtrl',
 
 
      // PickPlanView ----------------------->
-
-
 
             $scope.print = function () {
                 window.print();
@@ -206,7 +207,6 @@ heavenApp.controller('pickPlanCtrl',
                             });
                     }
                 } else {
-                    //alert("Date already exists!");
                     $scope.errorMsg = 'Date already exists!';
                     $scope.pickPlan.planDate = new Date(Date.parse($scope.dateTemp));
                     console.log($scope.dateTemp);
@@ -217,9 +217,6 @@ heavenApp.controller('pickPlanCtrl',
                 return isExist = false;
 
             };
-
-
-
 
 
             $scope.savePickPlanDetail = function (pickPlanDetail) {
@@ -441,7 +438,6 @@ heavenApp.controller('modalPickPlanViewCtrl',
                  
                 }            
             };
-
 
 
             $scope.save = function () {
