@@ -92,7 +92,7 @@
             <tr>
                 <th>Task</th>
                 <th>Kgs Target</th>
-                <th>Kgs/Hour</th>
+                <th ng-if="width > 1000">Kgs/Hour</th>
                 <th>Source</th>
                 <th ng-if="width > 1000">Start Time</th>
                 <th ng-if="width > 1000">Finish Time</th>
@@ -102,11 +102,11 @@
                 <th ng-if="width < 1000" style="width: 110px; text-align: center" class="hidden-print">Actions</th>
             </tr>
             </thead>
-            <tbody>
-            <tr ng-repeat="pickPlanDetail in pickPlanDetails | filter : pickPlan.pickPlanId">
+            <tbody ui-sortable  ng:model="pickPlanDetails">
+            <tr ng-repeat="pickPlanDetail in pickPlanDetails | filter : pickPlan.pickPlanId"  style="cursor: move">
                 <td>{{pickPlanDetail.task}}</td>
                 <td>{{pickPlanDetail.kgTarget}}</td>
-                <td>{{pickPlanDetail.kgPerHour}}</td>
+                <td ng-if="width > 1000">{{pickPlanDetail.kgPerHour}}</td>
                 <td>{{pickPlanDetail.source}}</td>
                 <td ng-if="width > 1000">{{pickPlanDetail.startTime}}</td>
                 <td ng-if="width > 1000">{{pickPlanDetail.finishTime}}</td>
@@ -134,8 +134,8 @@
     <div class="bs-loading-container" bs-loading-overlay></div>
     <div>
         <div class="hidden-print">
-            <button class="btn btn-default pull-right size2" ng-click="cancelPickPlan()"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-            <button type="button" class="btn btn-info hidden-print pull-right size1" ng-disabled="dateForm.$invalid" ng-click="print()"><span class="glyphicon glyphicon-print"></span> Print</button>
+            <button class="btn btn-default pull-right" ng-click="cancelPickPlan()"><span class="glyphicon glyphicon-remove"></span> Save & Exit</button>
+            <button type="button" class="btn btn-info hidden-print pull-right size1" ng-disabled="dateForm.$invalid" ng-click="print()"  ng-if="width > 1000"><span class="glyphicon glyphicon-print"></span> Print</button>
             <button class="btn btn-success pull-right" ng-disabled="dateForm.$invalid" ng-click="savePickPlanDetail()"><span class="glyphicon glyphicon-plus"></span> Add Row</button>
         </div>
     </div>
