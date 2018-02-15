@@ -52,7 +52,7 @@
                     <span style="color:red" ng-if="pickPlanDetailForm.startTime.$error.required"> *</span>
                 </label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" name="startTime" ng-model="pickPlanDetail.startTime" required/>
+                    <input type="text" class="form-control" name="startTime" ng-model="pickPlanDetail.startTime"  autocomplete="off" uib-typeahead="x as x.hour for x in pickHours  | filter:$viewValue | limitTo:8" required />
                 </div>
             </div>
             <div class="form-group row">
@@ -61,7 +61,7 @@
                     <span style="color:red" ng-if="pickPlanDetailForm.finishTime.$error.required"> *</span>
                 </label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" name="finishTime" ng-model="pickPlanDetail.finishTime" required/>
+                    <input type="text" class="form-control" name="finishTime" ng-model="pickPlanDetail.finishTime"  autocomplete="off" uib-typeahead="x as x.hour for x in pickHours  | filter:$viewValue | limitTo:8" required />
                 </div>
             </div>
             <div class="form-group row">

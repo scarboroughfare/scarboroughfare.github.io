@@ -26,13 +26,13 @@ heavenApp.config(["$routeProvider",
             })
 
             .when("/about", {
-                templateUrl: "Home/About",
-                controller: ""
+                templateUrl: "App/home/about.html",
+                controller: "homeCtrl"
             })
 
             .when("/contact", {
-                templateUrl: "Home/Contact",
-                controller: ""
+                templateUrl: "App/home/contact.html",
+                controller: "homeCtrl"
             })
 
 

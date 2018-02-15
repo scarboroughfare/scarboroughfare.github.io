@@ -237,8 +237,8 @@ heavenApp.controller('pickPlanCtrl',
                             kgTarget: pickPlanDetail.kgTarget,
                             kgPerHour: pickPlanDetail.task.pickRate,
                             source: pickPlanDetail.source.sourceName || pickPlanDetail.source,
-                            startTime: pickPlanDetail.startTime,
-                            finishTime: pickPlanDetail.finishTime,
+                            startTime: pickPlanDetail.startTime.hour || pickPlanDetail.startTime,
+                            finishTime: pickPlanDetail.finishTime.hour || pickPlanDetail.finishTime,
                             pickers: pickPlanDetail.pickers,
                             notes: pickPlanDetail.notes || null
 
@@ -255,8 +255,8 @@ heavenApp.controller('pickPlanCtrl',
                         pckPlanDetail.kgTarget = pickPlanDetail.kgTarget;
                         pckPlanDetail.kgPerHour = pickPlanDetail.task.pickRate;
                         pckPlanDetail.source = pickPlanDetail.source.sourceName || pickPlanDetail.source;
-                        pckPlanDetail.startTime = pickPlanDetail.startTime;
-                        pckPlanDetail.finishTime = pickPlanDetail.finishTime;
+                        pckPlanDetail.startTime = pickPlanDetail.startTime.hour || pickPlanDetail.startTime;
+                        pckPlanDetail.finishTime = pickPlanDetail.finishTime.hour || pickPlanDetail.finishTime;
                         pckPlanDetail.pickers = pickPlanDetail.pickers;
                         pckPlanDetail.notes = pickPlanDetail.notes || null;
 
@@ -391,6 +391,33 @@ heavenApp.controller('modalPickPlanViewCtrl',
                 .then(function (data) {
                     $scope.sources = data;
                 });
+
+            $scope.pickHours = [
+                {  hour: '1:00' },
+                {  hour: '1:30' },
+                {  hour: '2:00' },
+                {  hour: '2:30' },
+                {  hour: '3:00' },
+                {  hour: '3:30' },
+                {  hour: '4:00' },
+                {  hour: '4:30' },
+                {  hour: '5:00' },
+                {  hour: '5:30' },
+                {  hour: '6:00' },
+                {  hour: '6:30' },
+                {  hour: '7:00' },
+                {  hour: '7:30' },
+                {  hour: '8:00' },
+                {  hour: '8:30' },
+                {  hour: '9:00' },
+                {  hour: '9:30' },
+                {  hour: '10:00' },
+                {  hour: '10:30' },
+                {  hour: '11:00' },
+                {  hour: '11:30' },
+                {  hour: '12:00' },
+                {  hour: '12:30' }
+            ];
 
 
           
