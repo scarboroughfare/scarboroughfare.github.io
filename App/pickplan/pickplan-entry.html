@@ -15,10 +15,8 @@
                     <span style="color:red" ng-if="pickPlanDetailForm.task.$error.required"> *</span>
                 </label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" name="task" ng-model="pickPlanDetail.task" autocomplete="off" uib-typeahead="task as task.taskName for task in tasks  | filter:$viewValue | limitTo:8" required />
+                    <input type="text" class="form-control" name="task" ng-model="pickPlanDetail.task"  autocomplete="off" uib-typeahead="task as task.taskName for task in tasks  | filter:$viewValue | limitTo:8" required />
                 </div>
-
-
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-md-3 control-label">
@@ -35,7 +33,7 @@
                     <span style="color:red" ng-if="pickPlanDetailForm.kgPerHour.$error.required"> *</span>
                 </label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" name="kgPerHour" ng-model="pickPlanDetail.kgPerHour" required/>
+                    <input type="text" class="form-control" name="kgPerHour" ng-model="pickPlanDetail.task.pickRate"  required/>
                 </div>
             </div>
             <div class="form-group row">
@@ -44,7 +42,8 @@
                     <span style="color:red" ng-if="pickPlanDetailForm.source.$error.required"> *</span>
                 </label>
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" name="source" ng-model="pickPlanDetail.source" required/>
+                    <!--<input type="text" class="form-control" name="source" ng-model="pickPlanDetail.source" required/>-->
+                    <input type="text" class="form-control" name="source" ng-model="pickPlanDetail.source" autocomplete="off" uib-typeahead="source as source.sourceName for source in sources  | filter:$viewValue | limitTo:8" required />
                 </div>
             </div>
             <div class="form-group row">

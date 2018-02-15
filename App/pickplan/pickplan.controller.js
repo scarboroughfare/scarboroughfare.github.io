@@ -235,8 +235,8 @@ heavenApp.controller('pickPlanCtrl',
                             pickPlanId: $scope.pickPlan.pickPlanId,
                             task: pickPlanDetail.task.taskName || pickPlanDetail.task,
                             kgTarget: pickPlanDetail.kgTarget,
-                            kgPerHour: pickPlanDetail.kgPerHour,
-                            source: pickPlanDetail.source,
+                            kgPerHour: pickPlanDetail.task.pickRate,
+                            source: pickPlanDetail.source.sourceName || pickPlanDetail.source,
                             startTime: pickPlanDetail.startTime,
                             finishTime: pickPlanDetail.finishTime,
                             pickers: pickPlanDetail.pickers,
@@ -253,8 +253,8 @@ heavenApp.controller('pickPlanCtrl',
                         var pckPlanDetail = $scope.pickPlanDetails.$getRecord(pickPlanDetail.$id);
                         pckPlanDetail.task = pickPlanDetail.task.taskName || pickPlanDetail.task;
                         pckPlanDetail.kgTarget = pickPlanDetail.kgTarget;
-                        pckPlanDetail.kgPerHour = pickPlanDetail.kgPerHour;
-                        pckPlanDetail.source = pickPlanDetail.source;
+                        pckPlanDetail.kgPerHour = pickPlanDetail.task.pickRate;
+                        pckPlanDetail.source = pickPlanDetail.source.sourceName || pickPlanDetail.source;
                         pckPlanDetail.startTime = pickPlanDetail.startTime;
                         pckPlanDetail.finishTime = pickPlanDetail.finishTime;
                         pckPlanDetail.pickers = pickPlanDetail.pickers;
@@ -343,16 +343,7 @@ heavenApp.controller('modalPickPlanViewCtrl',
 
             $scope.pickPlanDetail = angular.copy(pickPlanDetail);
             $scope.pickers = [];
-            heavenService.getPickers()
-                .then(function (data) {
-                    $scope.pickers = data;
-
-                });
-
-            heavenService.getTasks()
-                .then(function (data) {
-                    $scope.tasks = data;
-                });
+  
 
             if (pickPlanDetail === null) {
                 $scope.headerTitle = 'Add New Row';
@@ -366,8 +357,41 @@ heavenApp.controller('modalPickPlanViewCtrl',
                 $scope.headerColor = 'modal-header modal-header-primary';
                 $scope.buttonColor = 'btn btn-primary';
                 $scope.buttonName = 'Update';
+
+                $scope.pickPlanDetail = {
+                    $id: pickPlanDetail.$id,
+                    pickPlanId: pickPlanDetail.pickPlanId,
+                    task: {
+                        taskName: pickPlanDetail.task,
+                        pickRate: pickPlanDetail.kgPerHour
+                    },
+                    kgTarget: pickPlanDetail.kgTarget,
+                    kgPerHour: pickPlanDetail.kgPerHour,
+                    source: pickPlanDetail.source,
+                    startTime: pickPlanDetail.startTime,
+                    finishTime: pickPlanDetail.finishTime,
+                    pickers: pickPlanDetail.pickers,
+                    notes: pickPlanDetail.notes
+                }
                                     
             }
+
+            heavenService.getPickers()
+                .then(function (data) {
+                    $scope.pickers = data;
+
+                });
+
+            heavenService.getTasks()
+                .then(function (data) {
+                    $scope.tasks = data;
+                });
+
+            heavenService.getSources()
+                .then(function (data) {
+                    $scope.sources = data;
+                });
+
 
           
             $scope.checkAll = function () {
@@ -380,6 +404,7 @@ heavenApp.controller('modalPickPlanViewCtrl',
                  
                 }            
             };
+
 
 
             $scope.save = function () {
