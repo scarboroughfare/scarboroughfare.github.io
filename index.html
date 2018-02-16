@@ -14,7 +14,7 @@
 
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top"  ng-if="restrictedPage">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -23,12 +23,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">ScarboroughFare</a>
+            <a class="navbar-brand" href="#!/home">ScarboroughFare</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#">Home</a>
+                    <a href="#!/home">Home</a>
                 </li>
                 <li>
                     <a href="#!/plan">Picking Plan</a>
@@ -49,6 +49,8 @@
                     <a href="#!/contact">Contact</a>
                 </li>
             </ul>
+            <br />
+            <p class="pull-right"><a href="#!/login" class="btn btn-primary">Logout</a></p>
         </div>
     </div>
 </nav>
@@ -56,12 +58,16 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="no-screen pull-right"  id="print-content" style="padding-right:10px"><img src="/Content/images/logo2.jpg" alt="Scarborough Fare" style="height:135px; width: 200px" /></div>
-            <div ng-view></div>
             <br />
+            <div class="no-screen pull-right" id="print-content" style="padding-right: 10px"><img src="/Content/images/logo2.jpg" alt="Scarborough Fare" style="height: 135px; width: 200px"/>
+            </div>
+            <div ng-view></div>
+        </div>
+        <div>
+            <p>&nbsp;</p>
             <hr/>
             <footer>
-                <p>&copy; 2018 - Made In Heaven Ltd</p>
+                <p style="text-align: center">&copy; 2018 - Made In Heaven Ltd</p>
             </footer>
         </div>
     </div>
@@ -72,6 +78,7 @@
 <script src="Scripts/bootstrap.js"></script>
 <script src="Scripts/angular.js"></script>
 <script src="Scripts/angular-route.js"></script>
+<script src="Scripts/angular-cookies.js"></script>
 <script src="Scripts/angular-animate.js"></script>
 <script src="Scripts/angular-sanitize.js"></script>
 <script src="Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
@@ -84,9 +91,6 @@
 <script src="Scripts/angular-loading-overlay.js"></script>
 <script src="Scripts/angular-loading-overlay-spinjs.js"></script>
 
-
-
-
 <!-- Custom Javascript Modules -->
 <script src="App/app.module.js"></script>
 <script src="App/app.routes.js"></script>
@@ -94,10 +98,12 @@
 <script src="App/app.directives.js"></script>
 <script src="App/app.config.js"></script>
 <script src="App/home/home.controller.js"></script>
+<script src="App/account/account.controller.js"></script>
 <script src="App/picker/picker.controller.js"></script>
 <script src="App/task/task.controller.js"></script>
 <script src="App/source/source.controller.js"></script>
 <script src="App/pickplan/pickplan.controller.js"></script>
+<script src="App/account/account.service.js"></script>
 
 <!--Fix navbar not closing after click-->
 <script>

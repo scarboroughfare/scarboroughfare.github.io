@@ -5,6 +5,16 @@ heavenApp.config(["$routeProvider",
 
         $routeProvider
 
+            .when("/login", {
+                templateUrl: "App/account/login.html",
+                controller: "accountCtrl"
+            })
+
+            .when("/register", {
+                templateUrl: "App/account/register.html",
+                controller: "accountCtrl"
+            })
+
             .when("/picker", {
                 templateUrl: "App/picker/picker-list.html",
                 controller: "pickerCtrl"
@@ -42,7 +52,7 @@ heavenApp.config(["$routeProvider",
             })
 
             .otherwise({
-                redirectTo: "/home"
+                redirectTo: "/login"
 
             });
 
