@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-heavenApp.factory('AuthenticationService',
+heavenApp.factory('authService',
     ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout',
         function (Base64, $http, $cookieStore, $rootScope, $timeout) {
             var service = {};
