@@ -92,7 +92,7 @@ heavenApp.controller('pickPlanCtrl',
                         resolve: {
                             pickPlan: pickPlan
                         },
-                        templateUrl: 'App/shared/delete-popup.html',
+                        templateUrl: 'App/shared/delete.popup.html',
                         controller: 'modalPickPlanCtrl',
                         backdrop: 'static'
                 }).result.then(function(pickPlan) {
@@ -125,6 +125,14 @@ heavenApp.controller('pickPlanCtrl',
 
 
      // PickPlanView ----------------------->
+
+            //$scope.getTotal = function () {
+            //    var total = 0;
+            //    for (var i = 0; i < $scope.pickPlanDetails.length; i++) {
+            //        total = total + parseInt($scope.pickPlanDetails[i].kgTarget);
+            //    };
+            //    return total;
+            //}
 
             $scope.print = function () {
                 window.print();
@@ -229,7 +237,7 @@ heavenApp.controller('pickPlanCtrl',
                     resolve: {
                         pickPlanDetail: pickPlanDetail
                     },
-                    templateUrl: 'App/pickplan/pickplan-entry.html',
+                    templateUrl: "App/pick.planner/pick.planner.entry.html",
                     controller: 'modalPickPlanViewCtrl',
                     backdrop: 'static'
                 }).result.then(function (pickPlanDetail) {
@@ -285,7 +293,7 @@ heavenApp.controller('pickPlanCtrl',
                     resolve: {
                         pickPlanDetail: pickPlanDetail
                     },
-                    templateUrl: 'App/shared/delete-popup.html',
+                    templateUrl: 'App/shared/delete.popup.html',
                     controller: 'modalPickPlanViewCtrl',
                     backdrop: 'static'
                 }).result.then(function (pickPlanDetail) {

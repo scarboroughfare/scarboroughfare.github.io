@@ -25,6 +25,16 @@
         return $q.when(pickPlanDetails);
     };
 
+    this.getPickerTasks = function () {
+        var pickerTasks = $firebaseArray(firebase.database().ref().child('pickerTasks'));
+        return $q.when(pickerTasks);
+    };
+
+    this.getPickerTaskDetails = function () {
+        var pickerTaskDetails = $firebaseArray(firebase.database().ref().child('pickerTaskDetails'));
+        return $q.when(pickerTaskDetails);
+    };
+
 }]);
 
 

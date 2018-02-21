@@ -38,7 +38,7 @@ heavenApp.controller('pickerCtrl',
                     resolve: {
                         picker: picker
                     },
-                    templateUrl: 'App/picker/picker-entry.html',
+                    templateUrl: 'App/picker/picker.entry.html',
                     controller: 'modalPickerCtrl',
                     backdrop: 'static'
                 }).result.then(function(picker) {
@@ -81,7 +81,7 @@ heavenApp.controller('pickerCtrl',
                         resolve: {
                             picker: picker
                         },
-                        templateUrl: 'App/shared/delete-popup.html',
+                        templateUrl: 'App/shared/delete.popup.html',
                         controller: 'modalPickerCtrl',
                         backdrop: 'static'
                 }).result.then(function(picker) {

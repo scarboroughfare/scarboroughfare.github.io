@@ -1,0 +1,106 @@
+<div>
+    <h3>Picker Task</h3>
+</div>
+
+<!--pickerTask List-->
+<div ng-hide="isShowDatePlan === false">
+    <br />
+    <div my-directive>
+        <table class="table table-bordered table-hover table-striped " style="table-layout: auto">
+            <thead>
+            <tr>
+                <th>Plan Date</th>
+                <th ng-if="width > 1000" style="width: 25%; text-align: center">Actions</th>
+                <th ng-if="width < 1000" style="width: 110px; text-align: center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="pickPlan in pickPlans | filter : currentDate">
+                <td>{{pickPlan.planDate}}</td>
+                <td style="text-align: center">
+                    <div ng-if="width > 1000">
+                        <button class="btn btn-primary" type="button" ng-click="viewPickPlan(pickPlan)" style="width: 40%"><span class="glyphicon glyphicon-eye-open"></span> View</button>
+                    </div>
+                    <div ng-if="width < 1000">
+                        <button class="btn btn-primary" type="button" ng-click="viewPickPlan(pickPlan)">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--<p style="text-align: center"> {{message}} </p>-->
+    <div class="bs-loading-container" bs-loading-overlay></div>
+</div>
+
+
+
+
+
+<!--PickPlan View-->
+<div ng-hide="isShowDatePlan === true" id="print-content">
+    <div>
+        <br />
+        <label>Date: </label> {{currentDate}}
+        <!--Hidden Field for PickPlan Id-->
+        <input class="form-group" placeholder="PickPlanId" type="hidden" ng-model="pickPlan.pickPlanId" ng-readonly="true" />
+
+    </div>
+    <div my-directive>
+        <p class="no-screen"><label>Date: </label> {{pickPlan.planDate.toDateString()}}</p>
+        <table class="table table-bordered table-hover table-striped " style="table-layout: auto">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Kgs Target</th>
+                    <th ng-if="width > 1000">Kgs/Hour</th>
+                    <th>Source</th>
+                    <th ng-if="width > 1000">Start Time</th>
+                    <th ng-if="width > 1000">Finish Time</th>
+                    <th ng-if="width > 1000">Pickers</th>
+                    <th ng-if="width > 1000">Notes</th>
+                    <!--<th ng-if="width > 1000" style="width: 15%; text-align: center" class="hidden-print">Actions</th>-->
+                    <!--<th style="width: 110px; text-align: center" class="hidden-print">Actions</th>-->
+                </tr>
+            </thead>
+            <tbody ui-sortable ng:model="pickPlanDetails">
+                <tr ng-repeat="pickPlanDetail in pickPlanDetails | filter : pickPlan.pickPlanId" style="cursor: move">
+                    <td>{{pickPlanDetail.task}}</td>
+                    <td>{{pickPlanDetail.kgTarget}}</td>
+                    <td ng-if="width > 1000">{{pickPlanDetail.kgPerHour}}</td>
+                    <td>{{pickPlanDetail.source}}</td>
+                    <td ng-if="width > 1000">{{pickPlanDetail.startTime}}</td>
+                    <td ng-if="width > 1000">{{pickPlanDetail.finishTime}}</td>
+                    <td ng-if="width > 1000">{{ showPickers(pickPlanDetail.pickers)}}</td>
+                    <td ng-if="width > 1000">{{pickPlanDetail.notes}}</td>
+                    <!--<td style="text-align: center" class="hidden-print">
+                        <div>
+                            <button class="btn btn-primary" type="button" ng-click="savePickPlanDetail(pickPlanDetail)">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                            <button class="btn btn-danger" type="button" ng-click="deletePickPlanDetail(pickPlanDetail)">
+                                <span class="glyphicon glyphicon glyphicon-trash"></span>
+                            </button>
+                        </div>
+                    </td>-->
+                </tr>
+            </tbody>
+            <!--<tfoot>
+            <tr>
+                <td>Sum</td>
+                <td>{{getTotal()}}</td>
+            </tr>
+            </tfoot>-->
+        </table>
+    </div>
+    <p style="text-align: center"> {{message}} </p>
+    <div class="bs-loading-container" bs-loading-overlay></div>
+    <div>
+        <div class="hidden-print">
+            <button class="btn btn-default pull-right" ng-click="cancelPickPlan()"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            <!--<button class="btn btn-success pull-right" ng-disabled="dateForm.$invalid" ng-click="savePickPlanDetail()"><span class="glyphicon glyphicon-plus"></span> Add Row</button>-->
+        </div>
+    </div>
+</div>

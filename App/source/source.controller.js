@@ -38,7 +38,7 @@ heavenApp.controller('sourceCtrl',
                     resolve: {
                         source: source
                     },
-                    templateUrl: 'App/source/source-entry.html',
+                    templateUrl: 'App/source/source.entry.html',
                     controller: 'modalSourceCtrl',
                     backdrop: 'static'
                 }).result.then(function(source) {
@@ -78,7 +78,7 @@ heavenApp.controller('sourceCtrl',
                         resolve: {
                             source: source
                         },
-                        templateUrl: 'App/shared/delete-popup.html',
+                        templateUrl: 'App/shared/delete.popup.html',
                         controller: 'modalSourceCtrl',
                         backdrop: 'static'
                 }).result.then(function(source) {

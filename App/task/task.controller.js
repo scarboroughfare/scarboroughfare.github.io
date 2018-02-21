@@ -38,7 +38,7 @@ heavenApp.controller('taskCtrl',
                     resolve: {
                         task: task
                     },
-                    templateUrl: 'App/task/task-entry.html',
+                    templateUrl: 'App/task/task.entry.html',
                     controller: 'modalTaskCtrl',
                     backdrop: 'static'
                 }).result.then(function(task) {
@@ -79,7 +79,7 @@ heavenApp.controller('taskCtrl',
                         resolve: {
                             task: task
                         },
-                        templateUrl: 'App/shared/delete-popup.html',
+                        templateUrl: 'App/shared/delete.popup.html',
                         controller: 'modalTaskCtrl',
                         backdrop: 'static'
                 }).result.then(function(task) {

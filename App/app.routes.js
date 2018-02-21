@@ -16,22 +16,22 @@ heavenApp.config(["$routeProvider",
             })
 
             .when("/picker", {
-                templateUrl: "App/picker/picker-list.html",
+                templateUrl: "App/picker/picker.list.html",
                 controller: "pickerCtrl"
             })
 
             .when("/task", {
-                templateUrl: "App/task/task-list.html",
+                templateUrl: "App/task/task.list.html",
                 controller: "taskCtrl"
             })
 
             .when("/source", {
-                templateUrl: "App/source/source-list.html",
+                templateUrl: "App/source/source.list.html",
                 controller: "sourceCtrl"
             })
 
             .when("/plan", {
-                templateUrl: "App/pickplan/pickplan-list.html",
+                templateUrl: "App/pick.planner/pick.planner.list.html",
                 controller: "pickPlanCtrl"
             })
 
@@ -47,12 +47,17 @@ heavenApp.config(["$routeProvider",
 
 
             .when("/home", {
-                templateUrl: "App/pickplan/pickplan-list.html",
+                templateUrl: "App/pick.planner/pick.planner.list.html",
                 controller: "pickPlanCtrl"
             })
 
+            .when("/pickertask", {
+                templateUrl: "App/picker.task/picker.task.list.html",
+                controller: "pickerTaskCtrl"
+            })
+
             .otherwise({
-                redirectTo: "/login"
+                redirectTo: "/home"
 
             });
 
