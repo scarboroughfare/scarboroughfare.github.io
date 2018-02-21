@@ -79,8 +79,9 @@ heavenApp.controller('pickerTaskCtrl',
             };
 
             //Cancel Picking Plan
-            $scope.cancelPickPlan = function () {
+            $scope.cancelPickPlan = function (form) {
                 $scope.errorMsg = '';
+
                 $scope.isShowDatePlan = true;
             };
 
@@ -226,7 +227,7 @@ heavenApp.controller('pickerTaskCtrl',
             };
 
 
-            $scope.savePickPlanDetail = function (pickPlanDetail) {
+            $scope.viewPickPlanDetail = function (pickPlanDetail) {
 
                 if (pickPlanDetail === undefined) {
                     pickPlanDetail = null;
@@ -236,8 +237,8 @@ heavenApp.controller('pickerTaskCtrl',
                     resolve: {
                         pickPlanDetail: pickPlanDetail
                     },
-                    templateUrl: "App/pick.planner/pick.planner.entry.html",
-                    controller: 'modalPickPlanViewCtrl',
+                    templateUrl: "App/picker.task/picker.task.view.html",
+                    controller: 'modalPickerPlanViewCtrl',
                     backdrop: 'static'
                 }).result.then(function (pickPlanDetail) {
 
@@ -293,7 +294,7 @@ heavenApp.controller('pickerTaskCtrl',
                         pickPlanDetail: pickPlanDetail
                     },
                     templateUrl: 'App/shared/delete.popup.html',
-                    controller: 'modalPickPlanViewCtrl',
+                    controller: 'modalPickerPlanViewCtrl',
                     backdrop: 'static'
                 }).result.then(function (pickPlanDetail) {
 
@@ -350,7 +351,7 @@ heavenApp.controller('modalPickPlanCtrl',
     ]);
 
 
-heavenApp.controller('modalPickPlanViewCtrl',
+heavenApp.controller('modalPickerPlanViewCtrl',
     [
         '$scope', '$uibModalInstance', 'pickPlanDetail', 'heavenService',
         function ($scope, $uibModalInstance, pickPlanDetail, heavenService) {
@@ -358,6 +359,20 @@ heavenApp.controller('modalPickPlanViewCtrl',
             $scope.pickPlanDetail = angular.copy(pickPlanDetail);
             $scope.pickers = [];
 
+            $scope.showPickers = function (pickerList) {
+                if (pickerList === undefined) {
+                    return ' ';
+                } else {
+                    var selected = [];
+                    angular.forEach($scope.pickers, function (picker) {
+
+                        if (pickerList.indexOf(picker.$id) >= 0) {
+                            selected.push(picker.nickName);
+                        }
+                    });
+                    return selected.join(', ');
+                }
+            };
 
             if (pickPlanDetail === null) {
                 $scope.headerTitle = 'Add New Row';
@@ -367,7 +382,7 @@ heavenApp.controller('modalPickPlanViewCtrl',
                 $scope.pickPlanDetail = [];
                 $scope.pickPlanDetail.pickers = [];
             } else {
-                $scope.headerTitle = 'Edit Row';
+                $scope.headerTitle = 'View Row';
                 $scope.headerColor = 'modal-header modal-header-primary';
                 $scope.buttonColor = 'btn btn-primary';
                 $scope.buttonName = 'Update';
