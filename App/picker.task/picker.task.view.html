@@ -10,7 +10,7 @@
         <br/>
         <form name="pickPlanDetailForm">
             <div class="form-group row">
-                <label class="col-xs-5 col-sm-3 col-md-3 control-label">
+                <label class="col-xs-5 col-sm-4 col-md-4 control-label">
                     Task:
                 </label>
                  <div class="col-xs-6 col-sm-3 col-md-3">
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-xs-5 col-sm-3 col-md-3 control-label">
+                <label class="col-xs-5 col-sm-4 col-md-4 control-label">
                     KgTarget:
                 </label>
                  <div class="col-xs-6 col-sm-3 col-md-3">
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-xs-5 col-sm-3 col-md-3 control-label">
+                <label class="col-xs-5 col-sm-4 col-md-4 control-label">
                     Kg/Hour:
                 </label>
                  <div class="col-xs-6 col-sm-3 col-md-3">
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-xs-5 col-sm-3 col-md-3 control-label">
+                <label class="col-xs-5 col-sm-4 col-md-4 control-label">
                     Source:
                 </label>
                  <div class="col-xs-6 col-sm-3 col-md-3">
@@ -42,32 +42,32 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-xs-5 col-sm-3 col-md-3 control-label">
-                    Start Time:
+                <label class="col-xs-5 col-sm-4 col-md-4 control-label">
+                    Time:
                 </label>
                  <div class="col-xs-6 col-sm-3 col-md-3">
-                  {{pickPlanDetail.startTime}}
+                  {{pickPlanDetail.startTime}} - {{pickPlanDetail.finishTime}}
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-xs-5 col-sm-3 col-md-3 control-label">
+            <!--<div class="form-group row">
+                <label class="col-xs-5 col-sm-4 col-md-4 control-label">
                     Finish Time:
                 </label>
                  <div class="col-xs-6 col-sm-3 col-md-3">
                   {{pickPlanDetail.finishTime}}
                 </div>
-            </div>
+            </div>-->
             <div class="form-group row">
-                <label class="col-xs-5 col-sm-3 col-md-3 control-label">
+                <label class="col-xs-5 col-sm-4 col-md-4 control-label">
                     Pickers:
                 </label>
-                <div class="col-xs-6 col-sm-3 col-md-3">
+                <div class="col-xs-6 col-sm-6 col-md-6">
                     {{ showPickers(pickPlanDetail.pickers)}}
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-xs-5 col-sm-3 col-md-3 control-label">Notes:</label>
-                <div class="col-xs-6 col-sm-3 col-md-3">
+                <label class="col-xs-5 col-sm-4 col-md-4 control-label">Notes:</label>
+                <div class="col-xs-6 col-sm-6 col-md-6">
                     {{pickPlanDetail.notes}}
                 </div>
             </div>
